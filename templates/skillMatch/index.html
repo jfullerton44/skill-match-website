@@ -1,0 +1,12 @@
+{% load static %}
+
+
+{% if student_list %}
+    <ul>
+    {% for student in student_list %}
+        <li> {{ student.name }} -- {{ student.bio }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No students are available.</p>
+{% endif %}
