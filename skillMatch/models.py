@@ -21,5 +21,6 @@ class Class(models.Model):
     professor = models.CharField(max_length=50)
     semester = models.CharField(max_length=50)
 
+
     def __str__(self):
-        return self.name
+        return self.prefix + " "+ self.course_number +" Semester: "+ self.semester
