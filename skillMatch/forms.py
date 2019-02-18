@@ -3,7 +3,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from .models import Student
 
-class SuggestionForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ('name','sex', 'bio')
