@@ -6,8 +6,6 @@ from django.utils import timezone
 
 from .models import Student, Skill, Class
 
-
-
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
@@ -25,6 +23,3 @@ def studentProfileView(request, user_id):
         'person_classes' : person_classes,
         'person_skills' : person_skills,
     })
-    
-def home(request):
-    return render(request, 'home.html')
