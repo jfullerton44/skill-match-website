@@ -14,7 +14,7 @@ class IndexView(generic.ListView):
 
 class ProfileCreateView(generic.CreateView):
     model = Student
-    fields = ('name', 'sex', 'bio')
+    fields = ('name','computing_id', 'sex', 'bio')
     success_url = reverse_lazy('skillMatch:index')
 
 def studentProfileView(request, user_id):
