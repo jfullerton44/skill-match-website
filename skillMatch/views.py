@@ -18,13 +18,13 @@ class ProfileCreateView(generic.CreateView):
     success_url = reverse_lazy('skillMatch:index')
 
 def studentProfileView(request, user_id):
-    person = get_object_or_404(Student, pk=user_id)
+    person = get_object_or_404(Student, computing_id=user_id)
     person_classes = person.classes.all()
     person_skills = person.skills.all()
-    return render(request, 'skillMatch/student.html', {'person' : person, 
-        'person_classes' : person_classes,
-        'person_skills' : person_skills,
-    })
+    context = {'person' : person, 
+                'person_classes' : person_classes, 
+                'person_skills' : person_skills}
+    return render(request, 'skillMatch/student.html', context)
     
 def home(request):
     return render(request, 'home.html')
