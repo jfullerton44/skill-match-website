@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('createProfile/', views.ProfileCreateView.as_view(), name='profile_create'),
     path('students/<slug:user_id>/', views.studentProfileView, name='profile'),
+    path('<int:pk>/edit/', views.StudentUpdateView.as_view(), name='student_edit')
 ]
