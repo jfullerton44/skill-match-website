@@ -37,3 +37,9 @@ class StudentUpdateView(generic.UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'skillMatch/student_update_form.html'
+    success_url = reverse_lazy('skillMatch:index')
+
+class ClassCreateView(generic.CreateView):
+    model = Class
+    fields = ('prefix','course_number','professor','semester')
+    success_url = reverse_lazy('skillMatch:index')
