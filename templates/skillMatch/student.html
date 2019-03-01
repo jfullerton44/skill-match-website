@@ -1,20 +1,25 @@
-<h1>{{person.name}}</h1>
-{{person.sex}}
-<br>
-{{person.bio}}
-<br>
-classes
-<ul>
+{% extends 'skillMatch/profile.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>{{person.name}}</h1>
+    {{person.sex}}
+    <br>
+    {{person.bio}}
+    <br>
+    classes
+    <ul>
     {% for class in person_classes %}
         {{ class }}
     {% endfor %}
-</ul>
+    </ul>
 
-skills
-<ul>
+    skills
+    <ul>
     {% for skill in person_skills %}
         {{ skill }}
     {% endfor %}
-</ul>
+    </ul>
 
-<a href="{% url 'skillMatch:student_edit' person.pk %}"> Edit Profile </a>
+    <a href="{% url 'skillMatch:student_edit' person.pk %}"> Edit Profile </a>
+{% endblock %}

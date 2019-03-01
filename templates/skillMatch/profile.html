@@ -29,13 +29,6 @@
     <div class="main-wrapper">
       <div class="single-page clearfix">
         <div class="inner-wrap">
-          <div class="navbar">
-            <form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
-                <input type="search" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
-                <button type="submit">find</button>
-            </form>
-          </div>
-          <hr>
           <div>
             {% block content %}
             {% endblock %}

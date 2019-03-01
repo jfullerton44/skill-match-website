@@ -11,6 +11,9 @@ class Student(models.Model):
     classes = models.ManyToManyField('Class',blank=True)
     skills = models.ManyToManyField('Skill', blank=True)
 
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.computing_id)
+
 
 class Skill(models.Model):
     name = models.CharField(max_length=50, unique=True)
