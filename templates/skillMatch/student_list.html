@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if matching_students %}
+        <ul>
+            {% for student in matching_students %}
+                <li> 
+                    <a href="{% url 'skillMatch:profile' student.computing_id %}"> {{ student }} </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No matching students
+    {% endif %}
+{% endblock %}

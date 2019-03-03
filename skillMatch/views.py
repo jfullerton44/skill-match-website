@@ -28,7 +28,6 @@ def studentProfileView(request, user_id):
                 'person_skills' : person_skills}
     return render(request, 'skillMatch/student.html', context)
 
-
 def home(request):
     return render(request, 'home.html')
 
@@ -43,3 +42,12 @@ class ClassCreateView(generic.CreateView):
     model = Class
     fields = ('prefix','course_number','professor','semester')
     success_url = reverse_lazy('skillMatch:index')
+
+def studentListView(request):
+    student_name = request.GET.get('usr_query', '')
+    students = Student.objects.filter(name__icontains=student_name)
+    context = {
+        'matching_students' : students
+    }
+
+    return render(request, 'skillMatch/student_list.html/', context)
