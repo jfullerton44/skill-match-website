@@ -16,21 +16,15 @@
             {{ class }} <br>
         {% endfor %}
         </ul>
-    Skills:
+    Skills
         <ul>
         {% for skill in person_skills %}
-            {{ skill }} <br>
+            {{ skill }}
         {% endfor %}
         </ul>
-
-    skills
-    <ul>
-    {% for skill in person_skills %}
-        {{ skill }}
-    {% endfor %}
-    </ul>
 
     {% if user.username == person.computing_id %}
         <a href="{% url 'skillMatch:student_edit' person.pk %}"> Edit Profile </a>
     {% endif %}
+    </div>
 {% endblock %}
