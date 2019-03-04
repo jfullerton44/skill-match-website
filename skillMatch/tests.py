@@ -57,7 +57,7 @@ class StudentModelTests(TestCase):
         student = Student.objects.get(computing_id="aa2aa")
         self.assertEqual(student.name, "John Smith")
 
-def ClassModelTests(TestCase):
+class ClassModelTests(TestCase):
     def test_class_created(self):
         prefix = "CS"
         course_number = "2150"
@@ -71,7 +71,7 @@ def ClassModelTests(TestCase):
         course_number = "2150"
         professor = "Aaron Bloomfield"
         semester = "F19"
-        test_class = Class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
         clas = Class.objects.get(professor="Aaron Bloomfield")
         self.assertEqual(clas.semester, "F19")
 
@@ -80,9 +80,12 @@ def ClassModelTests(TestCase):
         course_number = "2150"
         professor = "Aaron Bloomfield"
         semester = "F19"
-        test_class = Class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
         clas = Class.objects.filter(professor__icontains="bob")
         self.assertEqual(0, len(clas))
 
 def create_student(name, bio, id, sex):
     return Student.objects.create(name=name, bio=bio, computing_id=id, sex=sex)
+
+def create_class(prefix, course_number, professor, semester):
+    return Class.objects.create(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
