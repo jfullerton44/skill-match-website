@@ -6,7 +6,9 @@
 <body>
     {% if user.is_authenticated %}
         <p class="display-4">Hello, {{ user.first_name }}</p>
-        <div>Visit <a href="{% url 'skillMatch:profile_create' %}">here </a>to make a profile</div>
+        {% if user.username not in students %}
+            <div>Visit <a href="{% url 'skillMatch:profile_create' %}">here </a>to make a profile</div>
+        {% endif %}
         <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see users</div>
         <p>Logged in as {{ user.username }}</p>
         <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>

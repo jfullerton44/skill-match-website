@@ -29,7 +29,11 @@ def studentProfileView(request, user_id):
     return render(request, 'skillMatch/student.html', context)
 
 def home(request):
-    return render(request, 'home.html')
+    students = [student.computing_id for student in Student.objects.all()]
+    context = {
+        'students' : students
+    }
+    return render(request, 'home.html', context)
 
 
 class StudentUpdateView(generic.UpdateView):
