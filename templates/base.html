@@ -32,13 +32,17 @@
           <div class="navbar">
             <form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
                 <input type="search" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
-                <button type="submit">find</button>
+                <button type="submit">Search</button>
             </form>
           </div>
           <hr>
           <div>
             {% block content %}
             {% endblock %}
+          <div align="center">
+            <p>Logged in as {{ user.username }}</p>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+          </div>
           </div>
         </div>
       </div>

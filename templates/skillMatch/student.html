@@ -2,17 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <div align="center">
     <h1>{{person.name}}</h1>
-    {{person.sex}}
+    Sex: {{person.sex}}
     <br>
-    {{person.bio}}
     <br>
-    classes
-    <ul>
-    {% for class in person_classes %}
-        {{ class }}
-    {% endfor %}
-    </ul>
+    Bio: {{person.bio}}
+    <br>
+    <br>
+    Classes:
+        <ul>
+        {% for class in person_classes %}
+            {{ class }} <br>
+        {% endfor %}
+        </ul>
+    Skills:
+        <ul>
+        {% for skill in person_skills %}
+            {{ skill }} <br>
+        {% endfor %}
+        </ul>
 
     skills
     <ul>

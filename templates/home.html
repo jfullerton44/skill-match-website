@@ -10,10 +10,10 @@
             <div>Visit <a href="{% url 'skillMatch:profile_create' %}">here </a>to make a profile</div>
         {% endif %}
         <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see users</div>
-        <p>Logged in as {{ user.username }}</p>
-        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
     {% else %}
-        <p>Welcome to SkillMatch! Start by logging in.</p>
-        <a class="btn btn-primary" href="{% url 'login' %}">Log in</a>
+    <div align="center">
+        <h1>Welcome to SkillMatch! Start by logging in.</h1>
+        <font size="16"><a class="btn btn-primary" href="{% url 'login' %}">Log in</a></font>
+    </div>
     {% endif %}
 </body>
