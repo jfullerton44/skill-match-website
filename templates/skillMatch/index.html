@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block search %}
+  <form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
+      <input type="search" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
+      <button type="submit">Search</button>
+  </form>
+{% endblock %}
+
 {% block content %}
     {% if student_list %}
         <ul>
