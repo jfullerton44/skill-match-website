@@ -5,7 +5,7 @@ from .models import Student, Class, Skill
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name','sex','bio', 'computing_id']
+    list_display = ['name','sex','bio', 'user']
 
 
 @admin.register(Class)

@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -15,21 +16,24 @@ class IndexView(generic.ListView):
 
 class ProfileCreateView(generic.CreateView):
     model = Student
-    fields = ('name','computing_id', 'sex', 'bio')
+    fields = ('name', 'sex', 'bio')
     success_url = reverse_lazy('skillMatch:index')
 
 
 def studentProfileView(request, user_id):
-    person = get_object_or_404(Student, computing_id=user_id)
+    person = get_object_or_404(User, username=user_id)
+    person = person.student
     person_classes = person.classes.all()
     person_skills = person.skills.all()
+    picture = person.picture
     context = {'person' : person, 
                 'person_classes' : person_classes, 
-                'person_skills' : person_skills}
+                'person_skills' : person_skills,
+                'picture' : picture}
     return render(request, 'skillMatch/student.html', context)
 
 def home(request):
-    students = [student.computing_id for student in Student.objects.all()]
+    students = [student.user.username for student in Student.objects.all() if student.name]
     context = {
         'students' : students
     }
