@@ -37,7 +37,7 @@ def home(request):
     context = {
         'students' : students
     }
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
 
 class StudentUpdateView(generic.UpdateView):
