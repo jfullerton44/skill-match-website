@@ -110,16 +110,6 @@
     </section>
 
     <!-- Main -->
-    <div id="main">
-        {% block content1 %}
-            {% if user.first_name %}
-            <p class="display-4">Hello, {{ user.first_name }}</p>
-            <div>Visit <a href="{% url 'skillMatch:student_edit' user.student.pk %}">here </a>to edit
-                your profile
-            </div>
-            <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see students</div>
-            {% endif %}
-        {% endblock %}
 
 
 
