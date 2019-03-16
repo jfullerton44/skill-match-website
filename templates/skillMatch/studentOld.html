@@ -1,0 +1,34 @@
+{% extends 'skillMatch/profile.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div align="center">
+        <h1>{{person.name}}</h1>
+        <img src = "{{ picture.url }}" class="img-responsive" style="width: 300; " />
+        <br>
+        Sex: {{person.sex}}
+        <br>
+        <br>
+        <h2>Bio: </h2>
+        {{person.bio}}
+        <br>
+        <br>
+        <h2>Classes:</h2>
+        <ul>
+        {% for class in person_classes %}
+            {{ class }} <br>
+        {% endfor %}
+        </ul>
+        <br>
+        <h2>Skills:</h2>
+        <ul>
+        {% for skill in person_skills %}
+            {{ skill }} <br>
+        {% endfor %}
+        </ul>
+
+        {% if user == person.user %}
+            <a href="{% url 'skillMatch:student_edit' person.pk %}"> Edit Profile </a>
+        {% endif %}
+    </div>
+{% endblock %}
