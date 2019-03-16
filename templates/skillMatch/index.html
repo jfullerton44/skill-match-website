@@ -137,9 +137,8 @@
 {#                                    <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>#}
                                 </div>
                                 <div class="meta">
-                                    <time class="published" datetime="2015-11-01">November 1, 2015</time>
-                                    <a href="#" class="author"><span class="name">Jane Doe</span><img
-                                            src={% static "images/avatar.jpg" %}alt=""/></a>
+{#                                    <time class="published" datetime="2015-11-01">November 1, 2015</time>#}
+                                    <a href="#" class="author"><span class="name">{{ person.name }}</span><img src = "{{ person.picture.url }}" class="img-responsive" style="" /></a>
                                 </div>
                             </header>
                             <a href="single.html" class="image featured"><img
