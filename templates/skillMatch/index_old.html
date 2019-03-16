@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block search %}
+<form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
+    <input type="search" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
+    <button type="submit">Search</button>
+</form>
+{% endblock %}
+
+.clearfix::after{
+    content: "" 
+    clear: both; 
+    display: table;
+}
+
+{% block content %}
+{% if student_list %}
+<h1>Students:</h1>
+<ul>
+    {% for person in student_list %}
+    {% if person.name %}
+
+        <div class="clearfix" style=" border: 3px solid black; ">
+            <a href="{% url 'skillMatch:profile' person.user %}">
+                <img src="{{ person.picture.url }}" class="img-responsive" height="150" style="float: left; padding-right: 10px" />
+            </a>
+            <h3>{{ person.name }}</h3>
+            {{ person.bio }}<br>
+            <b>Classes:</b>
+            {% for class in person.classes.all %}
+            {{ class }},
+            {% endfor %}
+        </div>
+    {% endif %}<br>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No students are available.</p>
+{% endif %}
+{% endblock %}

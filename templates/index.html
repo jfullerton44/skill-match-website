@@ -23,7 +23,10 @@
 						<nav class="links">
 							<ul>
 								<li><a href="#">Meet Students</a></li>
-								<li><a href="#">Your Profile</a></li>
+                                {% if user.username %}
+                                    <li><a href="#">{{ user.username }}</a></li>
+								    <li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
+                                {% endif %}
 								<li><a href="#">Dashboard</a></li>
 								<li><a href="#">Posts</a></li>
 {#								<li><a href="#">Adipiscing</a></li>#}
@@ -108,6 +111,16 @@
 
 				<!-- Main -->
 					<div id="main">
+                        {% block content1 %}
+                            <p class="display-4">Hello, {{ user.first_name }}</p>
+                            <div>Visit <a href="{% url 'skillMatch:student_edit' user.student.pk %}">here </a>to edit
+                                your profile
+                            </div>
+                            <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see students</div>
+                        {% endblock %}
+
+
+
 
 						<!-- Post -->
 							<article class="post">
