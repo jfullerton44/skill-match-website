@@ -22,8 +22,8 @@
 						<h1><a href={% url 'home' %}>Student Skill Match</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Meet Students</a></li>
-								<li><a href="#">Your Profile</a></li>
+								<li><a href={% url 'skillMatch:index' %}>Meet Students</a></li>
+								<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
 								<li><a href="#">Dashboard</a></li>
 								<li><a href="#">Posts</a></li>
 							</ul>
