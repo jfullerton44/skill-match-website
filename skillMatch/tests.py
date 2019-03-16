@@ -15,7 +15,7 @@ class StudentModelTests(TestCase):
         bio = "hello i am a student"
         id = "js3fe"
         sex = "M"
-        test_student = Student(name=name, bio=bio, computing_id=id, sex=sex)
+        test_student = Student(name=name, bio=bio, sex=sex)
         self.assertIsInstance(test_student, (Student))
 
     def test_insert_student(self):
@@ -23,16 +23,16 @@ class StudentModelTests(TestCase):
         bio = "hello i am a student"
         id = "js3fe"
         sex = "M"
-        test_student = Student(name=name, bio=bio, computing_id=id, sex=sex)
-        create_student(name, bio, id, sex)
-        student = Student.objects.get(computing_id="js3fe")
+        test_student = Student(name=name, bio=bio, sex=sex)
+        create_student(name, bio, sex)
+        student = Student.objects.get(name="John Smith")
         self.assertEqual(student.name, "John Smith")
 
     def test_insert_bad_student(self):
         bio = "hello i am a student"
         id = "jf8he"
         sex = "M"
-        create_student("", bio, id, sex)
+        create_student("", bio, sex)
         with self.assertRaises(Exception):
             Student.objects.get(computing_id="js3fe")
 
@@ -41,21 +41,21 @@ class StudentModelTests(TestCase):
         bio = "hello i am a student"
         id = "jf8he"
         sex = "M"
-        create_student(name, bio, id, sex)
+        create_student(name, bio, sex)
         with self.assertRaises(Exception):
             create_student("Second Student", bio, id, sex)
 
-    def test_insert_student_same_name(self):
-        name = "John Smith"
-        bio = "hello i am a student"
-        id = "jf8he"
-        sex = "M"
-        create_student(name, bio, id, sex)
-        create_student(name, bio, "aa2aa", sex)
-        student = Student.objects.get(computing_id="jf8he")
-        self.assertEqual(student.name, "John Smith")
-        student = Student.objects.get(computing_id="aa2aa")
-        self.assertEqual(student.name, "John Smith")
+    # def test_insert_student_same_name(self):
+    #     name = "John Smith"
+    #     bio = "hello i am a student"
+    #     id = "jf8he"
+    #     sex = "M"
+    #     create_student(name, bio, sex)
+    #     create_student(name, bio, sex)
+    #     student = Student.objects.get(computing_id="jf8he")
+    #     self.assertEqual(student.name, "John Smith")
+    #     student = Student.objects.get(computing_id="aa2aa")
+    #     self.assertEqual(student.name, "John Smith")
 
 class ClassModelTests(TestCase):
     def test_class_created(self):
@@ -84,8 +84,8 @@ class ClassModelTests(TestCase):
         clas = Class.objects.filter(professor__icontains="bob")
         self.assertEqual(0, len(clas))
 
-def create_student(name, bio, id, sex):
-    return Student.objects.create(name=name, bio=bio, computing_id=id, sex=sex)
+def create_student(name, bio, sex):
+    return Student.objects.create(name=name, bio=bio, sex=sex)
 
 def create_class(prefix, course_number, professor, semester):
     return Class.objects.create(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
