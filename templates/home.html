@@ -18,10 +18,8 @@
     {% block content %}
         {% if user.is_authenticated %}
             <p class="display-4">Hello, {{ user.first_name }}</p>
-            {% if user.username not in students %}
-                <div>Visit <a href="{% url 'skillMatch:profile_create' %}">here </a>to make a profile</div>
-            {% endif %}
-            <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see users</div>
+            <div>Visit <a href="{% url 'skillMatch:student_edit' user.student.pk %}">here </a>to edit your profile</div>
+            <div>Visit <a href="{% url 'skillMatch:index' %}">here </a>to see students</div>
         {% else %}
             <div align="center">
                 <h1>Welcome to SkillMatch! Start by logging in.</h1>
