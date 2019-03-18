@@ -16,7 +16,7 @@ class IndexView(generic.ListView):
 
 class ProfileCreateView(generic.CreateView):
     model = Student
-    fields = ('name', 'sex', 'bio')
+    fields = ('name', 'sex', 'bio', 'classes', 'skills', 'picture')
     success_url = reverse_lazy('skillMatch:index')
 
 
@@ -46,10 +46,18 @@ class StudentUpdateView(generic.UpdateView):
     template_name = 'skillMatch/student_update_form.html'
     success_url = reverse_lazy('skillMatch:index')
 
+
 class ClassCreateView(generic.CreateView):
     model = Class
-    fields = ('prefix','course_number','professor','semester')
+    fields = ('prefix', 'course_number', 'professor', 'semester')
     success_url = reverse_lazy('skillMatch:index')
+
+
+class SkillCreateView(generic.CreateView):
+    model = Skill
+    fields = ('name',)
+    success_url = reverse_lazy('skillMatch:index')
+
 
 def studentListView(request):
     student_name = request.GET.get('usr_query', '')
