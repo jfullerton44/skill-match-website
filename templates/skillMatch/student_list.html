@@ -13,7 +13,7 @@
         <ul>
             {% for student in matching_students %}
                 <li> 
-                    <a href="{% url 'skillMatch:profile' student.user.username %}"> {{ student.user.first_name }} {{ student.user.last_name }} </a>
+                    <a href="{% url 'skillMatch:profile' student.user.username %}"> {{ student.user.get_full_name }}</a>
                 </li>
             {% endfor %}
         </ul>
