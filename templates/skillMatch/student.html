@@ -28,10 +28,14 @@
 			<h2>
 				Bio:
 			</h2>
-			{% if person.bio %}
-				<p>{{ person.bio }}</p>
+			{% if person.student.bio %}
+				<p>{{ person.student.bio }}</p>
 			{% else %}
-				<p>You haven't added a bio yet!</p>
+				{% if user == person %}
+					<p>You haven't input a bio yet!</p>
+				{% else %}
+					{{ person.get_full_name }} hasn't input a bio yet.
+				{% endif %}
 			{% endif %}
 		</div>
 		
@@ -41,14 +45,18 @@
 			<h2>
 				Classes:
 			</h2>
-			{% if person.classes %}
+			{% if person_classes %}
 				<ul>
 					{% for class in person_classes %}
 						{{ class }} <br>
 					{% endfor %}
 				</ul>
 			{% else %}
-				<p>You haven't input any classes yet!</p>
+				{% if user == person %}
+					<p>You haven't input any classes yet!</p>
+				{% else %}
+					{{ person.get_full_name }} hasn't input any classes yet.
+				{% endif %}
 			{% endif %}
 		</div>
 
@@ -58,14 +66,18 @@
 			<h2>
 				Skills:
 			</h2>
-			{% if person.skills %}
+			{% if person_skill %}
 				<ul>
 					{% for skill in person_skills %}
 						{{ skill }} <br>
 					{% endfor %}
 				</ul>
 			{% else %}
-				<p>You haven't input any skills yet!</p>
+				{% if user == person %}
+					<p>You haven't input any skills yet!</p>
+				{% else %}
+					{{ person.get_full_name }} hasn't input any skills yet.
+				{% endif %}
 			{% endif %}
 		</div>
 		
