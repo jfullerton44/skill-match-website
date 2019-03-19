@@ -35,12 +35,15 @@ def studentProfileView(request, user_id):
     return render(request, 'skillMatch/student.html', context)
 
 class StudentUpdateView(generic.UpdateView):
-    model = User
+    model = Student
     form_class = StudentForm
     template_name = 'skillMatch/student_update_form.html'
     success_url = reverse_lazy('skillMatch:index')
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
+    slug_field = 'user'
+    slug_url_kwarg = 'user'
+
+    def get_object(self, queryset=None):
+        return Student.objects.get(user__username=self.request.user)
 
 class ClassCreateView(generic.CreateView):
     model = Class

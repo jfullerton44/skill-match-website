@@ -23,12 +23,12 @@
 		<!-- <span class="image featured">
 			<img src="images/pic01.jpg" alt="" />
 		</span> -->
-
+		
 		<div class="bio">
 			<h2>
 				Bio:
 			</h2>
-			{% if person.student.bio %}
+			{% if user.student.bio %}
 				<p>{{ person.student.bio }}</p>
 			{% else %}
 				{% if user == person %}
