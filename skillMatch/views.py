@@ -12,7 +12,8 @@ from .models import Student, Skill, Class
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
-
+    context_object_name = 'students'
+    paginate_by = 5
 
 class ProfileCreateView(generic.CreateView):
     model = Student
@@ -22,30 +23,24 @@ class ProfileCreateView(generic.CreateView):
 
 def studentProfileView(request, user_id):
     person = get_object_or_404(User, username=user_id)
-    person = person.student
-    person_classes = person.classes.all()
-    person_skills = person.skills.all()
-    picture = person.picture
-    context = {'person' : person, 
-                'person_classes' : person_classes, 
-                'person_skills' : person_skills,
-                'picture' : picture}
+    person_classes = person.student.classes.all()
+    person_skills = person.student.skills.all()
+    picture = person.student.picture
+    context = {
+        'person' : person, 
+        'person_classes' : person_classes, 
+        'person_skills' : person_skills,
+        'picture' : picture
+    }
     return render(request, 'skillMatch/student.html', context)
 
-def home(request):
-    students = [student.user.username for student in Student.objects.all() if student.name]
-    context = {
-        'students' : students
-    }
-    return render(request, 'index.html', context)
-
-
 class StudentUpdateView(generic.UpdateView):
-    model = Student
+    model = User
     form_class = StudentForm
     template_name = 'skillMatch/student_update_form.html'
     success_url = reverse_lazy('skillMatch:index')
-
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
 class ClassCreateView(generic.CreateView):
     model = Class
@@ -62,7 +57,6 @@ class SkillCreateView(generic.CreateView):
 def studentListView(request):
     student_name = request.GET.get('usr_query', '')
     students = Student.objects.filter(user__username__icontains=student_name)
-    print(students)
     context = {
         'matching_students' : students
     }

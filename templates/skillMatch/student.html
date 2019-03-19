@@ -1,154 +1,79 @@
-<!DOCTYPE HTML>
-<!--
-	Future Imperfect by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+{% extends 'base.html' %}
 {% load static %}
-<html>
-	<head>
-		<title>{{person.name}}</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href={% static "assets/css/main.css"%} />
-	</head>
-	<body class="single is-preload">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href={% url 'home' %}>Student Skill Match</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href={% url 'skillMatch:index' %}>Meet Students</a></li>
-								<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
-								<li><a href="#">Dashboard</a></li>
-								<li><a href="#">Posts</a></li>
-							</ul>
-						</nav>
-						<nav class="main">
-							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>
-					</header>
-
-				<!-- Menu -->
-					<section id="menu">
-
-						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
-							</section>
-
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
-
-						<!-- Actions -->
-							<section>
-								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Log In</a></li>
-								</ul>
-							</section>
-
-					</section>
-
-				<!-- Main -->
-					<div id="main">
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">{{person.name}}</a></h2>
-										<p>Student at the University of Virginia</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">{{ person.name }}</span><img src = "{{ picture.url }}" class="img-responsive" style="" /></a>
-									</div>
-								</header>
-								<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-								<h2>Bio:</h2>
-                                <p>{{ person.bio }}</p>
-                                <h2>Classes:</h2>
-                                <ul>
-                                    {% for class in person_classes %}
-                                        {{ class }} <br>
-                                    {% endfor %}
-                                </ul>
-                                <br>
-                                <h2>Skills:</h2>
-                                <ul>
-                                    {% for skill in person_skills %}
-                                        {{ skill }} <br>
-                                    {% endfor %}
-                                </ul>
-
-                                {% if user == person.user %}
-                                    <a href="{% url 'skillMatch:student_edit' person.pk %}"> Edit Profile </a>
-                                {% endif %}
-							</article>
-
-					</div>
-
-				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="#" class="fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="fa-rss"><span class="label">RSS</span></a></li>
-							<li><a href="#" class="fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
-
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<!-- Post -->
+	<article class="post">
+		<header>
+			<div class="title">
+				<h2><a href="#">{{ person.get_full_name }} </a></h2>
+				<p>Student at the University of Virginia</p>
 			</div>
+			<div class="meta">
+				<!-- Maybe add a graduation date or time spent at UVa? -->
+				<!-- <time class="published" datetime="2015-11-01">November 1, 2015</time> -->
+				<a href="#" class="author">
+					<img src="{{ picture.url }}" class="img-responsive"/>
+				</a>
+			</div>
+		</header>
+		
+		<!-- <span class="image featured">
+			<img src="images/pic01.jpg" alt="" />
+		</span> -->
 
-		<!-- Scripts -->
-			<script src= {% static "assets/js/jquery.min.js"%}></script>
-			<script src={% static "assets/js/browser.min.js"%}></script>
-			<script src={% static "assets/js/breakpoints.min.js"%}></script>
-			<script src={% static "assets/js/util.js"%}></script>
-			<script src={% static "assets/js/main.js"%}></script>
-	</body>
-</html>
+		<div class="bio">
+			<h2>
+				Bio:
+			</h2>
+			{% if person.bio %}
+				<p>{{ person.bio }}</p>
+			{% else %}
+				<p>You haven't added a bio yet!</p>
+			{% endif %}
+		</div>
+		
+		<br>
+
+		<div class="classes">
+			<h2>
+				Classes:
+			</h2>
+			{% if person.classes %}
+				<ul>
+					{% for class in person_classes %}
+						{{ class }} <br>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>You haven't input any classes yet!</p>
+			{% endif %}
+		</div>
+
+		<br>
+
+		<div class="skills">
+			<h2>
+				Skills:
+			</h2>
+			{% if person.skills %}
+				<ul>
+					{% for skill in person_skills %}
+						{{ skill }} <br>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>You haven't input any skills yet!</p>
+			{% endif %}
+		</div>
+		
+		<footer>
+			{% if user == person %}
+				<a href="{% url 'skillMatch:student_edit' person.username %}" class="button large previous">Edit Profile</a>
+			{% endif %}
+		</footer>
+	</article>
+</div>
+{% endblock %}

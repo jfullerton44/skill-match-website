@@ -5,6 +5,5 @@
   <form method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Save Student</button>
   </form>
 {% endblock %}
