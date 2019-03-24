@@ -3,7 +3,7 @@
 
 {% block search %}
   <form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
-      <input type="search" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
+      <input type="text" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
       <button type="submit">Search</button>
   </form>
 {% endblock %}
@@ -13,7 +13,7 @@
         <ul>
             {% for student in matching_students %}
                 <li> 
-                    <a href="{% url 'skillMatch:profile' student.user.username %}"> {{ student }} </a>
+                    <a href="{% url 'skillMatch:profile' student.user.username %}"> {{ student.user.get_full_name }}</a>
                 </li>
             {% endfor %}
         </ul>
