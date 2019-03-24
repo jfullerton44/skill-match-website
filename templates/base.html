@@ -60,29 +60,29 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
       <section>
         <ul class="links">
           <li>
-            <a href="#">
-              <h3>Lorem ipsum</h3>
-              <p>Feugiat tempus veroeros dolor</p>
+            <a href={% url 'skillMatch:index' %}>
+              <h3>Dashboard</h3>
+              <p>Find other students</p>
+            </a>
+          </li>
+          <li>
+            <a href={% url 'skillMatch:profile' user.username %}>
+              <h3>Your Profile</h3>
+              <p>See and edit your profile</p>
             </a>
           </li>
           <li>
             <a href="#">
-              <h3>Dolor sit amet</h3>
-              <p>Sed vitae justo condimentum</p>
+              <h3>Posts</h3>
+              <p>See what other students are up to</p>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <h3>Feugiat veroeros</h3>
-              <p>Phasellus sed ultricies mi congue</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <h3>Etiam sed consequat</h3>
-              <p>Porta lectus amet ultricies</p>
-            </a>
-          </li>
+{#          <li>#}
+{#            <a href="#">#}
+{#              <h3>Etiam sed consequat</h3>#}
+{#              <p>Porta lectus amet ultricies</p>#}
+{#            </a>#}
+{#          </li>#}
         </ul>
       </section>
 
@@ -179,63 +179,62 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 	<!-- About -->
 	<section class="blurb">
 		<h2>About</h2>
-		<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet
-			placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+		<p>This project was completed from CS 3420 with the purpose to allow students to find others with similar interests and collaborate on assignments. </p>
 		<ul class="actions">
 			<li><a href="#" class="button">Learn More</a></li>
 		</ul>
 	</section>
 
 	<!-- Posts List -->
-	<section>
-		<ul class="posts">
-			<li>
-				<article>
-					<header>
-						<h3><a href="single.html">Lorem ipsum fermentum ut nisl vitae</a></h3>
-						<time class="published" datetime="2015-10-20">October 20, 2015</time>
-					</header>
-					<a href="single.html" class="image"><img src={% static "images/pic08.jpg" %}alt="" /></a>
-				</article>
-			</li>
-			<li>
-				<article>
-					<header>
-						<h3><a href="single.html">Convallis maximus nisl mattis nunc id lorem</a></h3>
-						<time class="published" datetime="2015-10-15">October 15, 2015</time>
-					</header>
-					<a href="single.html" class="image"><img src={% static "images/pic09.jpg" %} alt="" /></a>
-				</article>
-			</li>
-			<li>
-				<article>
-					<header>
-						<h3><a href="single.html">Euismod amet placerat vivamus porttitor</a></h3>
-						<time class="published" datetime="2015-10-10">October 10, 2015</time>
-					</header>
-					<a href="single.html" class="image"><img src={% static "images/pic10.jpg" %} alt="" /></a>
-				</article>
-			</li>
-			<li>
-				<article>
-					<header>
-						<h3><a href="single.html">Magna enim accumsan tortor cursus ultricies</a></h3>
-						<time class="published" datetime="2015-10-08">October 8, 2015</time>
-					</header>
-					<a href="single.html" class="image"><img src={% static "images/pic11.jpg" %} alt="" /></a>
-				</article>
-			</li>
-			<li>
-				<article>
-					<header>
-						<h3><a href="single.html">Congue ullam corper lorem ipsum dolor</a></h3>
-						<time class="published" datetime="2015-10-06">October 7, 2015</time>
-					</header>
-					<a href="single.html" class="image"><img src={% static "images/pic12.jpg" %} alt="" /></a>
-				</article>
-			</li>
-		</ul>
-	</section>
+{#	<section>#}
+{#		<ul class="posts">#}
+{#			<li>#}
+{#				<article>#}
+{#					<header>#}
+{#						<h3><a href="single.html">Lorem ipsum fermentum ut nisl vitae</a></h3>#}
+{#						<time class="published" datetime="2015-10-20">October 20, 2015</time>#}
+{#					</header>#}
+{#					<a href="single.html" class="image"><img src={% static "images/pic08.jpg" %}alt="" /></a>#}
+{#				</article>#}
+{#			</li>#}
+{#			<li>#}
+{#				<article>#}
+{#					<header>#}
+{#						<h3><a href="single.html">Convallis maximus nisl mattis nunc id lorem</a></h3>#}
+{#						<time class="published" datetime="2015-10-15">October 15, 2015</time>#}
+{#					</header>#}
+{#					<a href="single.html" class="image"><img src={% static "images/pic09.jpg" %} alt="" /></a>#}
+{#				</article>#}
+{#			</li>#}
+{#			<li>#}
+{#				<article>#}
+{#					<header>#}
+{#						<h3><a href="single.html">Euismod amet placerat vivamus porttitor</a></h3>#}
+{#						<time class="published" datetime="2015-10-10">October 10, 2015</time>#}
+{#					</header>#}
+{#					<a href="single.html" class="image"><img src={% static "images/pic10.jpg" %} alt="" /></a>#}
+{#				</article>#}
+{#			</li>#}
+{#			<li>#}
+{#				<article>#}
+{#					<header>#}
+{#						<h3><a href="single.html">Magna enim accumsan tortor cursus ultricies</a></h3>#}
+{#						<time class="published" datetime="2015-10-08">October 8, 2015</time>#}
+{#					</header>#}
+{#					<a href="single.html" class="image"><img src={% static "images/pic11.jpg" %} alt="" /></a>#}
+{#				</article>#}
+{#			</li>#}
+{#			<li>#}
+{#				<article>#}
+{#					<header>#}
+{#						<h3><a href="single.html">Congue ullam corper lorem ipsum dolor</a></h3>#}
+{#						<time class="published" datetime="2015-10-06">October 7, 2015</time>#}
+{#					</header>#}
+{#					<a href="single.html" class="image"><img src={% static "images/pic12.jpg" %} alt="" /></a>#}
+{#				</article>#}
+{#			</li>#}
+{#		</ul>#}
+{#	</section>#}
 
 
     <!-- Footer -->
