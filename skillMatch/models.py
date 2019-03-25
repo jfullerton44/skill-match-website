@@ -43,3 +43,19 @@ class Class(models.Model):
     
     def __str__(self):
         return "%s %s Semester: %s" % (self.prefix, self.course_number, self.semester)
+
+class Post(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    content = models.CharField(max_length=400)
+    course = models.ForeignKey(Class, on_delete=models.SET_NULL)  # up to 1 optional relevant course
+    skills = models.ManyToManyField('Skill', blank=True)    # optional relevant skills
+    date = models.DateTimeField(input_formats=['%m/%d/%y %H:%M'])
+    # likes = models.IntegerField()   # upvote and downvote feature?
+
+# class Reply(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)    # each reply must be attached to exactly one post (what about reply threads?)
+#     author = models.ForeignKey(User, on_delete=models.CASCADE)
+#     content = models.CharField(max_length=250)
+#     date = models.DateTimeField(input_formats=['%m/%d/%y %H:%M'])
+#     likes = models.IntegerField()   # upvote and downvote feature?
