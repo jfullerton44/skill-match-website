@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block search %}
-  <form class="search" action="{% url 'skillMatch:student_list' %}" method='get'>
-      <input type="text" placeholder="search students" name="usr_query" value='{{ student_name }}' required>
-      <button type="submit">Search</button>
-  </form>
-{% endblock %}
-
 {% block content %}
     <div id="main">
     {% if matching_students %}
@@ -20,18 +13,27 @@
 						</div>
 						<div class="meta">
 							<a href="#" class="author">
-								<span class="name">
+								<!-- <span class="name">
 									{{ person.name }}
-								</span>
-								<img src="{{ person.picture.url }}" class="img-responsive"/>
+								</span> -->
+								{% if person.picture.url %}
+									<img src="{{ person.picture.url }}" class="img-responsive" />
+								{% else %}
+									<img src= "media/images/default-user.jpg" class="img-responsive" />
+								{% endif %}
 							</a>
 						</div>
 					</header>
 
-					<a href="single.html" class="image featured">
-					</a>
-
-					<p>{{ person.bio }}</p>
+					{% if person.bio %}
+						<p>Bio: {{ person.bio }}</p>
+					{% endif %}
+					{% if person.classes %}
+						<p>Classes: {{ person.classes }}</p>
+					{% endif %}
+					{% if person.skills %}
+						<p>Skills: {{ person.skills }}</p>
+					{% endif %}
 
 					<footer>
 						<ul class="actions">
@@ -47,7 +49,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        No matching students
+        No matching students.
     {% endif %}
  </div>
 {% endblock %}

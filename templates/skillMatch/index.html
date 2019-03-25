@@ -7,54 +7,63 @@
 <div id="main">
 	<!-- Post -->
 	{% if students %}
-		{% for person in students %}
-			{% if person.user.username %}
-				<article class="post">
-					<header>
-						<div class="title">
-							<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
-						</div>
-						<div class="meta">
-							<a href="#" class="author">
-								<span class="name">
-									{{ person.name }}
-								</span>
-								<img src="{{ person.picture.url }}" class="img-responsive"/>
-							</a>
-						</div>
-					</header>
-					
-					<a href="single.html" class="image featured">
-						<!-- <img src={% static "images/pic01.jpg" %} alt="" /> -->
-					</a>
-					
-					<p>{{ person.bio }}</p>
-					
-					<footer>
-						<ul class="actions">
-							<li><a href="single.html" class="button large">Add Friend</a></li>
-						</ul>
-{#						<ul class="stats">#}
-{#							<li><a href="#">General</a></li>#}
-{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
-{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
-{#						</ul>#}
-					</footer>
-				</article>
-			{% endif %}
-		{% endfor %}
+	{% for person in students %}
+	{% if person.user.username %}
+	<article class="post">
+		<header>
+			<div class="title">
+				<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
+			</div>
+			<div class="meta">
+				<a href="#" class="author">
+					<!-- <span class="name">
+									{{ person.blurb }}
+								</span> -->
 
-		<!-- Pagination -->
-		<ul class="actions pagination">
-			{% if page_obj.has_previous %}
-				<li><a href="" class="button large previous">Previous Page</a></li>
-			{% endif %}
+					{% if person.picture.url %}
+						<img src="{{ person.picture.url }}" class="img-responsive" />
+					{% else %}
+						<img src= "media/images/default-user.jpg" class="img-responsive" />
+					{% endif %}
+				</a>
+			</div>
+		</header>
 
-			{% if page_obj.has_next %}
-				<li><a href="#" class="button large next">Next Page</a></li>
-			{% endif %}
-		</ul>
+		{% if person.bio %}
+			<p>Bio: {{ person.bio }}</p>
+		{% endif %}
+		{% if person.classes %}
+			<p>Classes: {{ person.classes }}</p>
+		{% endif %}
+		{% if person.skills %}
+			<p>Skills: {{ person.skills }}</p>
+		{% endif %}
+
+		<footer>
+			<ul class="actions">
+				<li><a href="single.html" class="button large">Add Friend</a></li>
+			</ul>
+								<ul class="stats">
+										<li><a href="#">General</a></li>
+									<li><a href="#" class="icon fa-heart">28</a></li>
+										<li><a href="#" class="icon fa-comment">128</a></li>
+									</ul>
+		</footer>
+	</article>
+	{% endif %}
+	{% endfor %}
+
+	<!-- Pagination -->
+	<ul class="actions pagination">
+		{% if page_obj.has_previous %}
+		<li><a href="" class="button large previous">Previous Page</a></li>
+		{% endif %}
+
+		{% if page_obj.has_next %}
+		<li><a href="#" class="button large next">Next Page</a></li>
+		{% endif %}
+	</ul>
 	{% endif %}
 </div>
 
-	{% endblock %}
+{% endblock %}
