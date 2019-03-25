@@ -59,10 +59,10 @@ class SkillCreateView(generic.CreateView):
     success_url = reverse_lazy('skillMatch:index')
 
 
-# class PostCreateView(generic.CreateView):
-#     model = Post
-#     fields = ('title', 'content', 'course', 'skills')
-#     success_url = reverse_lazy('skillMatch:index')
+class PostCreateView(generic.CreateView):
+    model = Post
+    fields = ('title', 'content', 'course', 'skills')
+    success_url = reverse_lazy('skillMatch:index')
 
 
 def studentListView(request):
@@ -80,6 +80,19 @@ def studentListView(request):
 
 	context = {
         'matching_students' : students
+    }
+
+	return render(request, 'skillMatch/student_list.html/', context)
+
+    
+def postListView(request): # for now, gets every post
+	posts = set()
+	chronological_posts = Post.objects.order_by('-date') # descending order
+
+	posts.update(chronological_posts)
+
+	context = {
+        'post_results' : posts
     }
 
 	return render(request, 'skillMatch/student_list.html/', context)

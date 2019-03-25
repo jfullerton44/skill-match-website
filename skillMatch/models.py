@@ -48,9 +48,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=400)
-    course = models.ForeignKey(Class, on_delete=models.SET_NULL)  # up to 1 optional relevant course
+    course = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)  # up to 1 optional relevant course
     skills = models.ManyToManyField('Skill', blank=True)    # optional relevant skills
-    date = models.DateTimeField(input_formats=['%m/%d/%y %H:%M'])
+    date = models.DateTimeField(auto_now_add=True) # captures time of object creation
     # likes = models.IntegerField()   # upvote and downvote feature?
 
 # class Reply(models.Model):
