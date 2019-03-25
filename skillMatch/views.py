@@ -10,7 +10,6 @@ from django.db.models import Value
 from .forms import StudentForm
 from .models import Student, Skill, Class
 
-
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
