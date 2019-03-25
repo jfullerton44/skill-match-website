@@ -52,11 +52,11 @@
 	<!-- Pagination -->
 	<ul class="actions pagination">
 		{% if page_obj.has_previous %}
-		<li><a href="" class="button large previous">Previous Page</a></li>
+		<li><a href="?page={{ page_obj.previous_page_number }}" class="button large previous">Previous Page</a></li>
 		{% endif %}
 
 		{% if page_obj.has_next %}
-		<li><a href="#" class="button large next">Next Page</a></li>
+		<li><a href="?page={{ page_obj.next_page_number }}" class="button large next">Next Page</a></li>
 		{% endif %}
 	</ul>
 	{% endif %}
