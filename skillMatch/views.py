@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.utils import timezone
+from django.db.models.functions import Concat
+from django.db.models import Value
 
 from .forms import StudentForm
 from .models import Student, Skill, Class
@@ -59,13 +61,15 @@ class SkillCreateView(generic.CreateView):
 def studentListView(request):
 	students = set()
 	computing_id = request.GET.get('usr_query', '')
-	student_name = request.GET.get('user_query', '')
+	student_name = request.GET.get('usr_query', '')
 
 	id_results = Student.objects.filter(user__username__icontains=computing_id)
-	name_results = Student.objects.filter(user__username__icontains=student_name)
+	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
+	last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
 
 	students.update(id_results)
-	students.update(name_results)
+	students.update(first_name_results)
+	students.update(last_name_results)
 
 	context = {
         'matching_students' : students
