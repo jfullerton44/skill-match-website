@@ -58,9 +58,17 @@ class SkillCreateView(generic.CreateView):
 
 
 def studentListView(request):
-    student_name = request.GET.get('usr_query', '')
-    students = Student.objects.filter(user__username__icontains=student_name)
-    context = {
+	students = set()
+	computing_id = request.GET.get('usr_query', '')
+	student_name = request.GET.get('user_query', '')
+
+	id_results = Student.objects.filter(user__username__icontains=computing_id)
+	name_results = Student.objects.filter(user__username__icontains=student_name)
+
+	students.update(id_results)
+	students.update(name_results)
+
+	context = {
         'matching_students' : students
     }
 
