@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+    <div id="main">
     {% if matching_students %}
         <ul>
             {% for person in matching_students %}
@@ -48,4 +49,5 @@
     {% else %}
         No matching students
     {% endif %}
+ </div>
 {% endblock %}
