@@ -4,8 +4,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.utils import timezone
-from django.db.models.functions import Concat
-from django.db.models import Value
 
 from .forms import StudentForm
 from .models import Student, Skill, Class
