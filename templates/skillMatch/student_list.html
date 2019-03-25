@@ -11,10 +11,38 @@
 {% block content %}
     {% if matching_students %}
         <ul>
-            {% for student in matching_students %}
-                <li> 
-                    <a href="{% url 'skillMatch:profile' student.user.username %}"> {{ student.user.get_full_name }}</a>
-                </li>
+            {% for person in matching_students %}
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
+						</div>
+						<div class="meta">
+							<a href="#" class="author">
+								<span class="name">
+									{{ person.name }}
+								</span>
+								<img src="{{ person.picture.url }}" class="img-responsive"/>
+							</a>
+						</div>
+					</header>
+
+					<a href="single.html" class="image featured">
+					</a>
+
+					<p>{{ person.bio }}</p>
+
+					<footer>
+						<ul class="actions">
+							<li><a href="single.html" class="button large">Add Friend</a></li>
+						</ul>
+						<ul class="stats">
+							<li><a href="#">General</a></li>
+							<li><a href="#" class="icon fa-heart">28</a></li>
+							<li><a href="#" class="icon fa-comment">128</a></li>
+						</ul>
+					</footer>
+				</article>
             {% endfor %}
         </ul>
     {% else %}

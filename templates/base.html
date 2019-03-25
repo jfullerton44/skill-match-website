@@ -65,12 +65,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
               <p>Find other students</p>
             </a>
           </li>
+            {% if user.username %}
           <li>
             <a href={% url 'skillMatch:profile' user.username %}>
               <h3>Your Profile</h3>
               <p>See and edit your profile</p>
             </a>
           </li>
+            {% endif %}
           <li>
             <a href="#">
               <h3>Posts</h3>
