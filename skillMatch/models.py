@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     SEX_CHOICES = [('M', 'Male'), ('F', 'Female'), ('O', 'Other')]
@@ -13,14 +14,17 @@ class Student(models.Model):
     classes = models.ManyToManyField('Class',blank=True)
     skills = models.ManyToManyField('Skill', blank=True)
     picture = models.ImageField(default = "media/default-user.jpg", upload_to='images/')
+    friends = models.ManyToManyField('Student', blank=True)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.user.username)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Student.objects.create(user=instance)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -40,6 +44,5 @@ class Class(models.Model):
     professor = models.CharField(max_length=50)
     semester = models.CharField(max_length=50)
 
-    
     def __str__(self):
         return "%s %s Semester: %s" % (self.prefix, self.course_number, self.semester)

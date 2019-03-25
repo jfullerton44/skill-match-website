@@ -8,11 +8,13 @@ from django.utils import timezone
 from .forms import StudentForm
 from .models import Student, Skill, Class
 
+
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
     context_object_name = 'students'
     paginate_by = 5
+
 
 class ProfileCreateView(generic.CreateView):
     model = Student
@@ -26,12 +28,13 @@ def studentProfileView(request, user_id):
     person_skills = person.student.skills.all()
     picture = person.student.picture
     context = {
-        'person' : person, 
-        'person_classes' : person_classes, 
-        'person_skills' : person_skills,
-        'picture' : picture
+        'person': person,
+        'person_classes': person_classes,
+        'person_skills': person_skills,
+        'picture': picture
     }
     return render(request, 'skillMatch/student.html', context)
+
 
 class StudentUpdateView(generic.UpdateView):
     model = Student
@@ -43,6 +46,7 @@ class StudentUpdateView(generic.UpdateView):
 
     def get_object(self, queryset=None):
         return Student.objects.get(user__username=self.request.user)
+
 
 class ClassCreateView(generic.CreateView):
     model = Class
@@ -74,3 +78,15 @@ def studentListView(request):
     }
 
 	return render(request, 'skillMatch/student_list.html/', context)
+
+
+def addfriend(request, user_id):
+    friend = get_object_or_404(User, username=user_id)
+    try:
+        student = request.GET.get(Student)
+    except(KeyError, Student.DoesNotExist):
+        return render(request, 'skillMatch:index', {'error_message': "You are not logged in! Log in via the sidebar."})
+    else:
+        student.friends.add(friend)
+        student.friends.save()
+        return HttpResponseRedirect(reverse('skillMatch:profile user.username'))

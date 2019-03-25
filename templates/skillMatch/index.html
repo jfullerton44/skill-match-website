@@ -28,9 +28,11 @@
 		<p>{{ person.bio }}</p>
 
 		<footer>
-			<ul class="actions">
-				<li><a href="single.html" class="button large">Add Friend</a></li>
-			</ul>
+			{% if user.username %}
+				<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
+					{% csrf_token %}
+					<input type="submit" class="button large" value="Add Friend">
+				</form>
 {#								<ul class="stats">#}
 {#										<li><a href="#">General</a></li>#}
 {#									<li><a href="#" class="icon fa-heart">28</a></li>#}
