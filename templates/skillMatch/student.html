@@ -105,6 +105,8 @@
 		<footer>
 			{% if user == person %}
 				<a href="{% url 'skillMatch:student_edit' person.username %}" class="button large previous">Edit Profile</a>
+                <a href="{% url 'skillMatch:skill_list'  %}" class="button large previous"> Add Skill</a>
+                <a href="{% url 'skillMatch:class_list'  %}" class="button large previous">Add Class</a>
 			{% endif %}
 		</footer>
 	</article>

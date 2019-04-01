@@ -13,8 +13,8 @@ class Student(models.Model):
     sex = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
     classes = models.ManyToManyField('Class',blank=True)
     skills = models.ManyToManyField('Skill', blank=True)
-    picture = models.ImageField(default = "media/default-user.jpg", upload_to='images/')
     friends = models.ManyToManyField('Student', blank=True)
+    picture = models.ImageField(default = "static/default-user.jpg", upload_to='images/')
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.user.username)

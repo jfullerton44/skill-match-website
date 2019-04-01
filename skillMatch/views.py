@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .forms import StudentForm
-from .models import Student, Skill, Class
+from .models import Student, Skill, Class, Post
 
 
 class IndexView(generic.ListView):
@@ -62,10 +62,26 @@ class SkillCreateView(generic.CreateView):
     success_url = reverse_lazy('skillMatch:index')
 
 
+class PostCreateView(generic.CreateView):
+    model = Post
+    fields = ('title', 'content', 'course', 'skills')
+    success_url = reverse_lazy('skillMatch:index')
+    def form_valid(self, form):
+        uname = self.kwargs['username']
+        mystudent = Student.objects.get(user__username=uname)
+        form.instance.author = mystudent
+        return super(PostCreateView, self).form_valid(form)
+    # def get_success_url(self):
+    #     uname = self.kwargs['username']
+    #     self.object.author = Student.objects.get(user__username=uname)
+    #     return reverse_lazy('skillMatch:index')
+
+
 def studentListView(request):
 	students = set()
 	computing_id = request.GET.get('usr_query', '')
 	student_name = request.GET.get('usr_query', '')
+	class_name = request.GET.get('usr_query', '')
 
 	id_results = Student.objects.filter(user__username__icontains=computing_id)
 	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
@@ -75,9 +91,20 @@ def studentListView(request):
 	students.update(first_name_results)
 	students.update(last_name_results)
 
+	classes = set()
+	classes.update(Class.objects.filter(prefix__icontains=class_name))
+	classes.update(Class.objects.filter(course_number__icontains=class_name))
+	classes.update(Class.objects.filter(semester__icontains=class_name))
+	classes.update(Class.objects.filter(professor__icontains=class_name))
+	
+	skills = set()
+	skills.update(Skill.objects.filter(name__icontains=class_name))
+
 	context = {
-        'matching_students' : students
-    }
+		'matching_students': students,
+		'matching_classes' : classes,
+		'matching_skills' : skills
+	}
 
 	return render(request, 'skillMatch/student_list.html/', context)
 
@@ -88,3 +115,53 @@ def addfriend(request, student_id):
     person_adding_friend.friends.add(friend_being_added)
     person_adding_friend.save()
     return studentProfileView(request, request.user.username)
+
+
+
+class skillListView(generic.ListView):
+    template_name = 'skillMatch/skill_list.html'
+    model = Skill
+    context_object_name = 'skills'
+    paginate_by = 15
+
+
+def addSkill(request, user_id, skill_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    person_skills = person.student.skills.all()
+    skill = Skill.objects.filter(id=skill_id).values_list('id', flat=True)
+    student.skills.add(skill[0])
+    # student.update()
+    return render(request, 'skillMatch/success.html')
+
+
+class classListView(generic.ListView):
+    template_name = 'skillMatch/class_list.html'
+    model = Class
+    context_object_name = 'classes'
+    paginate_by = 15
+
+
+def addclass(request, user_id, class_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    classToAdd = Class.objects.filter(id=class_id).values_list('id', flat=True)
+    student.classes.add(classToAdd[0])
+    # student.update()
+    return render(request, 'skillMatch/success.html')
+
+
+    
+def postListView(request): # for now, gets every post
+    # posts = set()
+    posts_ordered = Post.objects.all().order_by('-date') # descending order
+
+    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+                       for post in posts_ordered]
+    # posts.update(posts_ordered)
+
+    # context = {
+    #     'post_results' : posts_ordered
+    # }
+
+    return render(request, 'skillMatch/post_list.html/', {'post_results': post_results})
