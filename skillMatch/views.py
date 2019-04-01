@@ -74,3 +74,34 @@ def studentListView(request):
     }
 
 	return render(request, 'skillMatch/student_list.html/', context)
+
+
+class skillListView(generic.ListView):
+    template_name = 'skillMatch/skill_list.html'
+    model = Skill
+    context_object_name = 'skills'
+    paginate_by = 15
+
+def addSkill(request, user_id, skill_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    person_skills = person.student.skills.all()
+    skill = Skill.objects.filter(id=skill_id).values_list('id', flat=True)
+    student.skills.add(skill[0])
+    #student.update()
+    return render(request,'skillMatch/success.html' )
+
+
+class classListView(generic.ListView):
+    template_name = 'skillMatch/class_list.html'
+    model = Class
+    context_object_name = 'classes'
+    paginate_by = 15
+
+def addclass(request, user_id, class_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    classToAdd = Skill.objects.filter(id=class_id).values_list('id', flat=True)
+    student.skills.add(classToAdd[0])
+    #student.update()
+    return render(request,'skillMatch/success.html')
