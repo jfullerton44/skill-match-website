@@ -108,6 +108,6 @@ def addclass(request, user_id, class_id):
     person = get_object_or_404(User, username=user_id)
     student = person.student
     classToAdd = Class.objects.filter(id=class_id).values_list('id', flat=True)
-    student.skills.add(classToAdd[0])
+    student.classes.add(classToAdd[0])
     # student.update()
     return render(request, 'skillMatch/success.html')
