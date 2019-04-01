@@ -76,23 +76,35 @@ class PostCreateView(generic.CreateView):
 
 
 def studentListView(request):
-    students = set()
-    computing_id = request.GET.get('usr_query', '')
-    student_name = request.GET.get('usr_query', '')
+	students = set()
+	computing_id = request.GET.get('usr_query', '')
+	student_name = request.GET.get('usr_query', '')
+	class_name = request.GET.get('usr_query', '')
 
-    id_results = Student.objects.filter(user__username__icontains=computing_id)
-    first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
-    last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
+	id_results = Student.objects.filter(user__username__icontains=computing_id)
+	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
+	last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
 
-    students.update(id_results)
-    students.update(first_name_results)
-    students.update(last_name_results)
+	students.update(id_results)
+	students.update(first_name_results)
+	students.update(last_name_results)
 
-    context = {
-        'matching_students': students
-    }
+	classes = set()
+	classes.update(Class.objects.filter(prefix__icontains=class_name))
+	classes.update(Class.objects.filter(course_number__icontains=class_name))
+	classes.update(Class.objects.filter(semester__icontains=class_name))
+	classes.update(Class.objects.filter(professor__icontains=class_name))
+	
+	skills = set()
+	skills.update(Skill.objects.filter(name__icontains=class_name))
 
-    return render(request, 'skillMatch/student_list.html/', context)
+	context = {
+		'matching_students': students,
+		'matching_classes' : classes,
+		'matching_skills' : skills
+	}
+
+	return render(request, 'skillMatch/student_list.html/', context)
 
 
 class skillListView(generic.ListView):
