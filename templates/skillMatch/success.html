@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<!-- Post -->
+ <div class="title">
+     Success click <a href = '{% url "skillMatch:skill_list" %}'> here </a> to add another skill or <a href = '{% url "skillMatch:class_list" %}'> here </a> to add another class.
+ </div>
+</div>
+{% endblock %}

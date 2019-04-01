@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('name', 'sex', 'bio', 'classes', 'skills', 'picture')
+        fields = ('name', 'sex', 'bio', 'picture')
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

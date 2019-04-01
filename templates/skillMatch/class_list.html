@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div id="main">
+    {% if classes %}
+        <ul>
+            {% for class in classes %}
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2>{{ class.prefix}}  {{ class.course_number }}  {{ class.professor }}  {{ class.semester }}</h2>
+						</div>
+{#						<div class="meta">#}
+{#							<a href="#" class="author">#}
+{#								<!-- <span class="name">#}
+{#									{{ person.name }}#}
+{#								</span> -->#}
+{#								<img src="{{ person.picture.url }}" class="img-responsive" />#}
+{#							</a>#}
+{#						</div>#}
+					</header>
+
+{#					<p>Bio: {{ person.bio }}</p>#}
+
+					<footer>
+						<ul class="actions">
+							<li><a href = '{% url "skillMatch:add_skill" user.username class.id %}' class="button large">Add this Class</a></li>
+						</ul>
+{#						<ul class="stats">#}
+{#							<li><a href="#">General</a></li>#}
+{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
+{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
+{#						</ul>#}
+					</footer>
+				</article>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No matching classes.
+    {% endif %}
+ </div>
+{% endblock %}

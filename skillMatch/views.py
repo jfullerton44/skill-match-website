@@ -8,6 +8,7 @@ from django.utils import timezone
 from .forms import StudentForm
 from .models import Student, Skill, Class, Post
 
+
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
@@ -27,10 +28,10 @@ def studentProfileView(request, user_id):
     person_skills = person.student.skills.all()
     picture = person.student.picture
     context = {
-        'person' : person, 
-        'person_classes' : person_classes, 
-        'person_skills' : person_skills,
-        'picture' : picture
+        'person': person,
+        'person_classes': person_classes,
+        'person_skills': person_skills,
+        'picture': picture
     }
     return render(request, 'skillMatch/student.html', context)
 
@@ -75,23 +76,57 @@ class PostCreateView(generic.CreateView):
 
 
 def studentListView(request):
-	students = set()
-	computing_id = request.GET.get('usr_query', '')
-	student_name = request.GET.get('usr_query', '')
+    students = set()
+    computing_id = request.GET.get('usr_query', '')
+    student_name = request.GET.get('usr_query', '')
 
-	id_results = Student.objects.filter(user__username__icontains=computing_id)
-	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
-	last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
+    id_results = Student.objects.filter(user__username__icontains=computing_id)
+    first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
+    last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
 
-	students.update(id_results)
-	students.update(first_name_results)
-	students.update(last_name_results)
+    students.update(id_results)
+    students.update(first_name_results)
+    students.update(last_name_results)
 
-	context = {
-        'matching_students' : students
+    context = {
+        'matching_students': students
     }
 
-	return render(request, 'skillMatch/student_list.html/', context)
+    return render(request, 'skillMatch/student_list.html/', context)
+
+
+class skillListView(generic.ListView):
+    template_name = 'skillMatch/skill_list.html'
+    model = Skill
+    context_object_name = 'skills'
+    paginate_by = 15
+
+
+def addSkill(request, user_id, skill_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    person_skills = person.student.skills.all()
+    skill = Skill.objects.filter(id=skill_id).values_list('id', flat=True)
+    student.skills.add(skill[0])
+    # student.update()
+    return render(request, 'skillMatch/success.html')
+
+
+class classListView(generic.ListView):
+    template_name = 'skillMatch/class_list.html'
+    model = Class
+    context_object_name = 'classes'
+    paginate_by = 15
+
+
+def addclass(request, user_id, class_id):
+    person = get_object_or_404(User, username=user_id)
+    student = person.student
+    classToAdd = Class.objects.filter(id=class_id).values_list('id', flat=True)
+    student.skills.add(classToAdd[0])
+    # student.update()
+    return render(request, 'skillMatch/success.html')
+
 
     
 def postListView(request): # for now, gets every post
