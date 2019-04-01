@@ -63,6 +63,15 @@ class PostCreateView(generic.CreateView):
     model = Post
     fields = ('title', 'content', 'course', 'skills')
     success_url = reverse_lazy('skillMatch:index')
+    def form_valid(self, form):
+        uname = self.kwargs['username']
+        mystudent = Student.objects.get(user__username=uname)
+        form.instance.author = mystudent
+        return super(PostCreateView, self).form_valid(form)
+    # def get_success_url(self):
+    #     uname = self.kwargs['username']
+    #     self.object.author = Student.objects.get(user__username=uname)
+    #     return reverse_lazy('skillMatch:index')
 
 
 def studentListView(request):
@@ -86,13 +95,15 @@ def studentListView(request):
 
     
 def postListView(request): # for now, gets every post
-	posts = set()
-	chronological_posts = Post.objects.order_by('-date') # descending order
+    # posts = set()
+    posts_ordered = Post.objects.all().order_by('-date') # descending order
 
-	posts.update(chronological_posts)
+    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+                       for post in posts_ordered]
+    # posts.update(posts_ordered)
 
-	context = {
-        'post_results' : posts
-    }
+    # context = {
+    #     'post_results' : posts_ordered
+    # }
 
-	return render(request, 'skillMatch/student_list.html/', context)
+    return render(request, 'skillMatch/post_list.html/', {'post_results': post_results})

@@ -27,7 +27,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 					<li><a href={% url 'skillMatch:index' %}>Dashboard</a></li>
 					{% if user.username %}
 					<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
-					<li><a href="#">Posts</a></li>
+					<li><a href={% url 'skillMatch:post_list' %}>Posts</a></li>
 					{% endif %}
 				</ul>
 			</nav>

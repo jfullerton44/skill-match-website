@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+ <div id="main">
+	<!-- <article class="post"> -->
+		<ul class="actions">
+			{% if user.username %}
+			<li><a href={% url 'skillMatch:post_create' user.username %} class="button large">Create Post</a></li>
+			{% endif %}
+		</ul>
+	<!-- </article> -->
+    {% if post_results %}
+        <ul>
+            {% for post in post_results %}
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2>{{ post.title }}</a></h2>
+						</div>
+						<div>
+							<h3><a href={% url 'skillMatch:profile' post.author_user %}>{{ post.author_name }}</a></h3>
+							<!-- <h3>{{ post.author.user.get_full_name }}</h3> -->
+						</div>
+						<div class="meta">
+							<a href="#" class="author">
+								<!-- <span class="name">
+									{{ person.name }}
+								</span> -->
+								<img src="{{ post.author.picture.url }}" class="img-responsive" />
+							</a>
+						</div>
+					</header>
+
+					<div>
+					<p>{{ post.content }}</p>
+					</div>
+
+					<footer>
+						<div>
+						{% if post.course != 'None' %}
+							<ul>
+								<p>Related Course: </p>
+								<li><p>{{ post.course }}</p></li>
+							</ul>
+							
+						{% endif %}
+						</div>
+						<div>
+						{% if post.skills %}
+							<p>Related Skills:</p>
+							<ul class="list-group">
+								{% for skill in post.skills %}
+									<li class="list-group-item">{{ skill }}</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+						</div>
+
+						<!-- <ul class="stats">
+							<li><a href="#">General</a></li>
+							<li><a href="#" class="icon fa-heart">28</a></li>
+							<li><a href="#" class="icon fa-comment">128</a></li>
+						</ul> -->
+					</footer>
+				</article>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No matching posts.
+    {% endif %}
+ </div>
+{% endblock %}
