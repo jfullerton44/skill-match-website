@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'skillMatch',
     'crispy_forms',
     'social_django'
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
