@@ -3,29 +3,29 @@
 
 {% block content %}
     <div id="main">
-    {% if matching_students %}
+    {% if classes %}
         <ul>
-            {% for person in matching_students %}
+            {% for class in classes %}
 				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
+							<h2>{{ class.prefix}}{{ class.course_number }}{{ class.professor }}{{ class.semester }}</h2>
 						</div>
-						<div class="meta">
-							<a href="#" class="author">
-								<!-- <span class="name">
-									{{ person.name }}
-								</span> -->
-								<img src="{{ person.picture.url }}" class="img-responsive" />
-							</a>
-						</div>
+{#						<div class="meta">#}
+{#							<a href="#" class="author">#}
+{#								<!-- <span class="name">#}
+{#									{{ person.name }}#}
+{#								</span> -->#}
+{#								<img src="{{ person.picture.url }}" class="img-responsive" />#}
+{#							</a>#}
+{#						</div>#}
 					</header>
 
-					<p>Bio: {{ person.bio }}</p>
+{#					<p>Bio: {{ person.bio }}</p>#}
 
 					<footer>
 						<ul class="actions">
-							<li><a href="single.html" class="button large">Add Friend</a></li>
+							<li><a href = '{% url "skillMatch:add_skill" user.username class.id %}' class="button large">Add this Class</a></li>
 						</ul>
 {#						<ul class="stats">#}
 {#							<li><a href="#">General</a></li>#}
@@ -37,7 +37,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        No matching students.
+        No matching classes.
     {% endif %}
  </div>
 {% endblock %}
