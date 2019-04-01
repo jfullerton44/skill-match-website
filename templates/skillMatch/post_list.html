@@ -27,7 +27,7 @@
 								<!-- <span class="name">
 									{{ person.name }}
 								</span> -->
-								<img src="{{ post.author.picture.url }}" class="img-responsive" />
+								<img src="{{ post.author_picture }}" class="img-responsive" />
 							</a>
 						</div>
 					</header>
@@ -40,18 +40,17 @@
 						<div>
 						{% if post.course != 'None' %}
 							<ul>
-								<p>Related Course: </p>
-								<li><p>{{ post.course }}</p></li>
+								<h3>Related Course: </h3>
+								<p>{{ post.course }}</p>
 							</ul>
-							
 						{% endif %}
 						</div>
 						<div>
 						{% if post.skills %}
-							<p>Related Skills:</p>
 							<ul class="list-group">
+								<h3>Related Skills:</h3>
 								{% for skill in post.skills %}
-									<li class="list-group-item">{{ skill }}</li>
+									<p>{{ skill }}</p>
 								{% endfor %}
 							</ul>
 						{% endif %}

@@ -133,7 +133,7 @@ def postListView(request): # for now, gets every post
     # posts = set()
     posts_ordered = Post.objects.all().order_by('-date') # descending order
 
-    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
                        for post in posts_ordered]
     # posts.update(posts_ordered)
 
