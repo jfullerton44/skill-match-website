@@ -81,7 +81,7 @@ def studentListView(request):
 	classes.update(Class.objects.filter(professor__icontains=class_name))
 	
 	skills = set()
-	skills.update(Skill.objects.filter(prefix__icontains=class_name))
+	skills.update(Skill.objects.filter(name__icontains=class_name))
 
 	context = {
 		'matching_students': students,
