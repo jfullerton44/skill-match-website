@@ -26,11 +26,13 @@ def studentProfileView(request, user_id):
     person = get_object_or_404(User, username=user_id)
     person_classes = person.student.classes.all()
     person_skills = person.student.skills.all()
+    person_friends = person.student.friends.all()
     picture = person.student.picture
     context = {
         'person': person,
         'person_classes': person_classes,
         'person_skills': person_skills,
+        'person_friends': person_friends,
         'picture': picture
     }
     return render(request, 'skillMatch/student.html', context)
@@ -105,6 +107,15 @@ def studentListView(request):
 	}
 
 	return render(request, 'skillMatch/student_list.html/', context)
+
+
+def addfriend(request, student_id):
+    friend_being_added = Student.objects.get(user__username=student_id)
+    person_adding_friend = Student.objects.get(user__username=request.user)
+    person_adding_friend.friends.add(friend_being_added)
+    person_adding_friend.save()
+    return studentProfileView(request, request.user.username)
+
 
 
 class skillListView(generic.ListView):

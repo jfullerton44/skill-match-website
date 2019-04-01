@@ -8,7 +8,7 @@
 	<article class="post">
 		<header>
 			<div class="title">
-				<h2><a href="#">{{ person.get_full_name }} </a></h2>
+				<p><a href="#">{{ person.get_full_name }} </a></p>
 				<p>Student at the University of Virginia</p>
 			</div>
 			<div class="meta">
@@ -80,6 +80,27 @@
 				{% endif %}
 			{% endif %}
 		</div>
+
+		<div class="friends">
+			<h2>
+				Friends:
+			</h2>
+			{% if person_friends %}
+				<ul>
+					{% for friend in person_friends %}
+						<a href={% url 'skillMatch:profile' friend.user %}>{{ friend.user.get_full_name }}</a> <br>
+					{% endfor %}
+				</ul>
+			{% else %}
+				{% if user == person %}
+					<p>You haven't added any friends yet!</p>
+				{% else %}
+					{{ person.get_full_name }} hasn't added any friends yet.
+				{% endif %}
+			{% endif %}
+		</div>
+
+		<br>
 		
 		<footer>
 			{% if user == person %}

@@ -28,14 +28,18 @@
 		<p>{{ person.bio }}</p>
 
 		<footer>
-			<ul class="actions">
-				<li><a href="single.html" class="button large">Add Friend</a></li>
-			</ul>
-{#								<ul class="stats">#}
-{#										<li><a href="#">General</a></li>#}
-{#									<li><a href="#" class="icon fa-heart">28</a></li>#}
-{#										<li><a href="#" class="icon fa-comment">128</a></li>#}
-{#									</ul>#}
+			{% if user.username %}
+				{% if person == user.student %}
+					<h4>Your Profile</h4>
+				{% elif person in user.student.friends.all %}
+					<h4>Already friends!</h4>
+				{% else %}
+					<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
+						{% csrf_token %}
+						<input type="submit" class="button large" value="Add Friend">
+					</form>
+			{% endif %}
+			{% endif %}
 		</footer>
 	</article>
 	{% endif %}
