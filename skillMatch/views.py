@@ -143,15 +143,14 @@ def addclass(request, user_id, class_id):
 
     
 def postListView(request): # for now, gets every post
-    # posts = set()
     posts_ordered = Post.objects.all().order_by('-date') # descending order
+    if posts_ordered:
+        post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+                        for post in posts_ordered]
+        context = {
+            'post_results': post_results
+        }
+    else:
+        context = {}
 
-    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
-                       for post in posts_ordered]
-    # posts.update(posts_ordered)
-
-    # context = {
-    #     'post_results' : posts_ordered
-    # }
-
-    return render(request, 'skillMatch/post_list.html/', {'post_results': post_results})
+    return render(request, 'skillMatch/post_list.html/', context)
