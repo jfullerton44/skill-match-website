@@ -9,7 +9,7 @@
 				<article class="post">
 					<header>
 						<div class="title">
-							<h2>{{ class.prefix}}  {{ class.course_number }}  {{ class.professor }}  {{ class.semester }}</h2>
+							<h2>{{ class.prefix}}  {{ class.course_number }}  {{ class.professor }}  {{ class.semester }} </h2>
 						</div>
 {#						<div class="meta">#}
 {#							<a href="#" class="author">#}
@@ -25,7 +25,7 @@
 
 					<footer>
 						<ul class="actions">
-							<li><a href = '{% url "skillMatch:add_skill" user.username class.id %}' class="button large">Add this Class</a></li>
+							<li><a href = '{% url "skillMatch:add_class" user.username class.id %}' class="button large">Add this Class</a></li>
 						</ul>
 {#						<ul class="stats">#}
 {#							<li><a href="#">General</a></li>#}
