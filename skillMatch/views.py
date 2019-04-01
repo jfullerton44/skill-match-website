@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .forms import StudentForm
-from .models import Student, Skill, Class
+from .models import Student, Skill, Class, Post
 
 
 class IndexView(generic.ListView):
@@ -60,6 +60,21 @@ class SkillCreateView(generic.CreateView):
     success_url = reverse_lazy('skillMatch:index')
 
 
+class PostCreateView(generic.CreateView):
+    model = Post
+    fields = ('title', 'content', 'course', 'skills')
+    success_url = reverse_lazy('skillMatch:index')
+    def form_valid(self, form):
+        uname = self.kwargs['username']
+        mystudent = Student.objects.get(user__username=uname)
+        form.instance.author = mystudent
+        return super(PostCreateView, self).form_valid(form)
+    # def get_success_url(self):
+    #     uname = self.kwargs['username']
+    #     self.object.author = Student.objects.get(user__username=uname)
+    #     return reverse_lazy('skillMatch:index')
+
+
 def studentListView(request):
     students = set()
     computing_id = request.GET.get('usr_query', '')
@@ -111,3 +126,19 @@ def addclass(request, user_id, class_id):
     student.classes.add(classToAdd[0])
     # student.update()
     return render(request, 'skillMatch/success.html')
+
+
+    
+def postListView(request): # for now, gets every post
+    # posts = set()
+    posts_ordered = Post.objects.all().order_by('-date') # descending order
+
+    post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+                       for post in posts_ordered]
+    # posts.update(posts_ordered)
+
+    # context = {
+    #     'post_results' : posts_ordered
+    # }
+
+    return render(request, 'skillMatch/post_list.html/', {'post_results': post_results})
