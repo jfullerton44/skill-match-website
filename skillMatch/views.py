@@ -8,11 +8,13 @@ from django.utils import timezone
 from .forms import StudentForm
 from .models import Student, Skill, Class
 
+
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
     model = Student
     context_object_name = 'students'
     paginate_by = 5
+
 
 class ProfileCreateView(generic.CreateView):
     model = Student
@@ -26,12 +28,13 @@ def studentProfileView(request, user_id):
     person_skills = person.student.skills.all()
     picture = person.student.picture
     context = {
-        'person' : person, 
-        'person_classes' : person_classes, 
-        'person_skills' : person_skills,
-        'picture' : picture
+        'person': person,
+        'person_classes': person_classes,
+        'person_skills': person_skills,
+        'picture': picture
     }
     return render(request, 'skillMatch/student.html', context)
+
 
 class StudentUpdateView(generic.UpdateView):
     model = Student
@@ -43,6 +46,7 @@ class StudentUpdateView(generic.UpdateView):
 
     def get_object(self, queryset=None):
         return Student.objects.get(user__username=self.request.user)
+
 
 class ClassCreateView(generic.CreateView):
     model = Class
@@ -57,23 +61,23 @@ class SkillCreateView(generic.CreateView):
 
 
 def studentListView(request):
-	students = set()
-	computing_id = request.GET.get('usr_query', '')
-	student_name = request.GET.get('usr_query', '')
+    students = set()
+    computing_id = request.GET.get('usr_query', '')
+    student_name = request.GET.get('usr_query', '')
 
-	id_results = Student.objects.filter(user__username__icontains=computing_id)
-	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
-	last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
+    id_results = Student.objects.filter(user__username__icontains=computing_id)
+    first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
+    last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
 
-	students.update(id_results)
-	students.update(first_name_results)
-	students.update(last_name_results)
+    students.update(id_results)
+    students.update(first_name_results)
+    students.update(last_name_results)
 
-	context = {
-        'matching_students' : students
+    context = {
+        'matching_students': students
     }
 
-	return render(request, 'skillMatch/student_list.html/', context)
+    return render(request, 'skillMatch/student_list.html/', context)
 
 
 class skillListView(generic.ListView):
@@ -82,14 +86,15 @@ class skillListView(generic.ListView):
     context_object_name = 'skills'
     paginate_by = 15
 
+
 def addSkill(request, user_id, skill_id):
     person = get_object_or_404(User, username=user_id)
     student = person.student
     person_skills = person.student.skills.all()
     skill = Skill.objects.filter(id=skill_id).values_list('id', flat=True)
     student.skills.add(skill[0])
-    #student.update()
-    return render(request,'skillMatch/success.html' )
+    # student.update()
+    return render(request, 'skillMatch/success.html')
 
 
 class classListView(generic.ListView):
@@ -98,10 +103,11 @@ class classListView(generic.ListView):
     context_object_name = 'classes'
     paginate_by = 15
 
+
 def addclass(request, user_id, class_id):
     person = get_object_or_404(User, username=user_id)
     student = person.student
-    classToAdd = Skill.objects.filter(id=class_id).values_list('id', flat=True)
+    classToAdd = Class.objects.filter(id=class_id).values_list('id', flat=True)
     student.skills.add(classToAdd[0])
-    #student.update()
-    return render(request,'skillMatch/success.html')
+    # student.update()
+    return render(request, 'skillMatch/success.html')
