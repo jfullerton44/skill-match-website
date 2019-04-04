@@ -19,6 +19,7 @@ urlpatterns = [
     path('addOneSkill/<slug:user_id>/<slug:skill_id>', views.addSkill, name ='add_skill'),
     path('addClass/', views.classListView.as_view(), name='class_list'),
     path('addOneClass/<slug:user_id>/<slug:class_id>', views.addclass, name ='add_class'),
+    path('class/<slug:course_pk>/', views.classDetailView, name='course_details'),
 
 
 ]

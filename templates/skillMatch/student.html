@@ -8,7 +8,7 @@
 	<article class="post">
 		<header>
 			<div class="title">
-				<p><a href="#">{{ person.get_full_name }} </a></p>
+				<h2><a href="#">{{ person.get_full_name }} </a></h2>
 				<p>Student at the University of Virginia</p>
 			</div>
 			<div class="meta">
@@ -48,7 +48,7 @@
 			{% if person_classes %}
 				<ul>
 					{% for class in person_classes %}
-						{{ class }} <br>
+					<a href={% url 'skillMatch:course_details' class.pk %} >{{ class }}</a> <br>
 					{% endfor %}
 				</ul>
 			{% else %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Main -->
+<div id="main">
+	<!-- Post -->
+	<article class="post">
+		<header>
+			<div class="title">
+				<h2><a href="#">{{ course }} </a></h2>
+				<p>{{course.professor}}</p>
+			</div>
+			<!--<div class="meta">-->
+				<!-- Maybe add a graduation date or time spent at UVa? -->
+				<!-- <time class="published" datetime="2015-11-01">November 1, 2015</time> -->
+				<!--<a href="#" class="author">-->
+					<!--<img src="{{ picture.url }}" class="img-responsive"/>-->
+				<!--</a>-->
+			<!--</div>-->
+		</header>
+
+		<div>
+			<h2>
+				Students:
+			</h2>
+			<ul>
+				{% for student in students %}
+					<a href={% url 'skillMatch:profile' student.user %}>{{ student.user.get_full_name }}</a> <br>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<br>
+
+	</article>
+</div>
+{% endblock %}

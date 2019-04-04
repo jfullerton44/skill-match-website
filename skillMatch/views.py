@@ -37,6 +37,15 @@ def studentProfileView(request, user_id):
     }
     return render(request, 'skillMatch/student.html', context)
 
+def classDetailView(request, course_pk) :
+    course = get_object_or_404(Class, pk=course_pk)
+    students = course.student_set.all()
+    context = {
+        'course' : course,
+        'students' : students
+    }
+    return render(request, 'skillMatch/course_details.html', context)
+
 
 class StudentUpdateView(generic.UpdateView):
     model = Student
