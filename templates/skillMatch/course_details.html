@@ -8,107 +8,31 @@
 	<article class="post">
 		<header>
 			<div class="title">
-				<p><a href="#">{{ person.get_full_name }} </a></p>
-				<p>Student at the University of Virginia</p>
+				<h2><a href="#">{{ course }} </a></h2>
+				<p>{{course.professor}}</p>
 			</div>
-			<div class="meta">
+			<!--<div class="meta">-->
 				<!-- Maybe add a graduation date or time spent at UVa? -->
 				<!-- <time class="published" datetime="2015-11-01">November 1, 2015</time> -->
-				<a href="#" class="author">
-					<img src="{{ picture.url }}" class="img-responsive"/>
-				</a>
-			</div>
+				<!--<a href="#" class="author">-->
+					<!--<img src="{{ picture.url }}" class="img-responsive"/>-->
+				<!--</a>-->
+			<!--</div>-->
 		</header>
-		
-		<!-- <span class="image featured">
-			<img src="images/pic01.jpg" alt="" />
-		</span> -->
-		
-		<div class="bio">
-			<h2>
-				Bio:
-			</h2>
-			{% if person.student.bio %}
-				<p>{{ person.student.bio }}</p>
-			{% else %}
-				{% if user == person %}
-					<p>You haven't input a bio yet!</p>
-				{% else %}
-					{{ person.get_full_name }} hasn't input a bio yet.
-				{% endif %}
-			{% endif %}
-		</div>
-		
-		<br>
 
-		<div class="classes">
+		<div>
 			<h2>
-				Classes:
+				Students:
 			</h2>
-			{% if person_classes %}
-				<ul>
-					{% for class in person_classes %}
-						{{ class }} <br>
-					{% endfor %}
-				</ul>
-			{% else %}
-				{% if user == person %}
-					<p>You haven't input any classes yet!</p>
-				{% else %}
-					{{ person.get_full_name }} hasn't input any classes yet.
-				{% endif %}
-			{% endif %}
+			<ul>
+				{% for student in students %}
+					<a href={% url 'skillMatch:profile' student.user %}>{{ student.user.get_full_name }}</a> <br>
+				{% endfor %}
+			</ul>
 		</div>
 
 		<br>
 
-		<div class="skills">
-			<h2>
-				Skills:
-			</h2>
-			{% if person_skills %}
-				<ul>
-					{% for skill in person_skills %}
-						{{ skill }} <br>
-					{% endfor %}
-				</ul>
-			{% else %}
-				{% if user == person %}
-					<p>You haven't input any skills yet!</p>
-				{% else %}
-					{{ person.get_full_name }} hasn't input any skills yet.
-				{% endif %}
-			{% endif %}
-		</div>
-
-		<div class="friends">
-			<h2>
-				Friends:
-			</h2>
-			{% if person_friends %}
-				<ul>
-					{% for friend in person_friends %}
-						<a href={% url 'skillMatch:profile' friend.user %}>{{ friend.user.get_full_name }}</a> <br>
-					{% endfor %}
-				</ul>
-			{% else %}
-				{% if user == person %}
-					<p>You haven't added any friends yet!</p>
-				{% else %}
-					{{ person.get_full_name }} hasn't added any friends yet.
-				{% endif %}
-			{% endif %}
-		</div>
-
-		<br>
-		
-		<footer>
-			{% if user == person %}
-				<a href="{% url 'skillMatch:student_edit' person.username %}" class="button large previous">Edit Profile</a>
-                <a href="{% url 'skillMatch:skill_list'  %}" class="button large previous"> Add Skill</a>
-                <a href="{% url 'skillMatch:class_list'  %}" class="button large previous">Add Class</a>
-			{% endif %}
-		</footer>
 	</article>
 </div>
 {% endblock %}
