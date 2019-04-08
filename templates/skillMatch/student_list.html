@@ -24,7 +24,7 @@
 					<p>Bio: {{ person.bio }}</p>
 
 					<footer>
-							{% if user.username %}
+						{% if user.username %}
 							{% if person == user.student %}
 								<h4>Your Profile</h4>
 							{% elif person in user.student.friends.all %}
@@ -34,6 +34,7 @@
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Friend">
 							</form>
+							{% endif %}
 						{% endif %}
 			
 					<!-- <ul class="actions">
@@ -46,8 +47,9 @@
 {#						</ul>#}
 					</footer>
 				</article>
+			</ul>
             {% endfor %}
-		</ul>
+
 
 	{% elif matching_classes %}
 		<ul>
@@ -70,6 +72,7 @@
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Class">
 								</form>
+								{% endif %}
 						{% endif %}
 		
 {#						<ul class="stats">#}
@@ -103,6 +106,7 @@
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Skill">
 								</form>
+								{% endif %}
 						{% endif %}
 			
 {#						<ul class="stats">#}
