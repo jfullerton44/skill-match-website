@@ -7,43 +7,44 @@
 <div id="main">
 	<!-- Post -->
 	{% if students %}
-	{% for person in students %}
-	{% if person.user.username %}
-	<article class="post">
-		<header>
-			<div class="title">
-				<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
-			</div>
-			<div class="meta">
-				<a href="#" class="author">
-					<!-- <span class="name">
-									{{ person.blurb }}
-								</span> -->
+		{% for person in students %}
+			{% if person.user.username %}
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
+						</div>
+						<div class="meta">
+							<a href="#" class="author">
+								<!-- <span class="name">
+												{{ person.blurb }}
+											</span> -->
 
-					<img src="{{ person.picture.url }}" class="img-responsive" />
-				</a>
-			</div>
-		</header>
+								<img src="{{ person.picture.url }}" class="img-responsive" />
+							</a>
+						</div>
+					</header>
 
-		<p>{{ person.bio }}</p>
+					<p>{{ person.bio }}</p>
 
-		<footer>
-			{% if user.username %}
-				{% if person == user.student %}
-					<h4>Your Profile</h4>
-				{% elif person in user.student.friends.all %}
-					<h4>Already friends!</h4>
-				{% else %}
-					<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
-						{% csrf_token %}
-						<input type="submit" class="button large" value="Add Friend">
-					</form>
+					<footer>
+						{% if user.username %}
+							{% if person == user.student %}
+								<h4>Your Profile</h4>
+							{% elif person in user.student.friends.all %}
+								<h4>Already friends!</h4>
+							{% else %}
+								<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Add Friend">
+								</form>
+						{% endif %}
+					</footer>
+				</article>
 			{% endif %}
-			{% endif %}
-		</footer>
-	</article>
+		{% endfor %}
 	{% endif %}
-	{% endfor %}
+
 
 	<!-- Pagination -->
 	<ul class="actions pagination">
