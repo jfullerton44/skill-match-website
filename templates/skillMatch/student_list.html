@@ -65,10 +65,10 @@
 							{% if user.username %}
 							{% if person == user.student %}
 								<h4>Your Profile</h4>
-							{% elif person in user.student.classes.all %}
-								<h4>Already friends!</h4>
+							{% elif class in user.student.classes.all %}
+								<h4>Already added class</h4>
 							{% else %}
-							<form action="{% url 'skillMatch:add_class' person.user %}" method="post">
+							<form action="{% url 'skillMatch:add_class' person.user.username class.id %}" method="post">
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Class">
 								</form>
@@ -99,10 +99,10 @@
 							{% if user.username %}
 							{% if person == user.student %}
 								<h4>Your Profile</h4>
-							{% elif person in user.student.skills.all %}
-								<h4>Already friends!</h4>
+							{% elif skill in user.student.skills.all %}
+								<h4>Already added skill</h4>
 							{% else %}
-							<form action="{% url 'skillMatch:add_skill' person.user %}" method="post">
+							<form action="{% url 'skillMatch:add_skill' person.user.username skill.id %}" method="post">
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Skill">
 								</form>
