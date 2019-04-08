@@ -9,79 +9,80 @@
 	{% if students %}
 		{% for person in students %}
 			{% if person.user.username %}
-			<article class="post">
-				<header>
-					<div class="title">
-						<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
-					</div>
-					<div class="meta">
-						<a href="#" class="author">
-							<!-- <span class="name">
-											{{ person.blurb }}
-										</span> -->
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href={% url 'skillMatch:profile' person.user %}>{{ person.user.get_full_name }}</a></h2>
+						</div>
+						<div class="meta">
+							<a href="#" class="author">
+								<!-- <span class="name">
+												{{ person.blurb }}
+											</span> -->
 
-							<img src="{{ person.picture.url }}" class="img-responsive" />
-						</a>
-					</div>
-				</header>
+								<img src="{{ person.picture.url }}" class="img-responsive" />
+							</a>
+						</div>
+					</header>
 
-				<p>{{ person.bio }}</p>
+					<p>{{ person.bio }}</p>
 
-				{% if person not in user.student.friends.all and person != user.student %}
-					{% if user.student|common:person > 1 %}
-						{% if user.student|mutual:person > 1 %}
-							<p>You have {{ user.student|common:person }} classes and {{ user.student|mutual:person }} friends in common! </p>
-						{% elif user.student|mutual:person == 1 %}
-							<p>You have {{ user.student|common:person }} classes and 1 friend in common! </p>
-						{% else %}
-							<p>You have {{ user.student|common:person }} classes in common! </p>
-						{% endif %}
-					{% elif user.student|common:person == 1 %}
-						{% if user.student|mutual:person > 1 %}
-							<p>You have 1 class and {{ user.student|mutual:person }} friends in common! </p>
-						{% elif user.student|mutual:person == 1 %}
-							<p>You have 1 class and 1 friend in common! </p>
-						{% else %}
-							<p>You have 1 class in common! </p>
-						{% endif %}
-					{% else %}
-						{% if user.student|mutual:person > 1 %}
-							<p>You have {{ user.student|mutual:person }} friends in common! </p>
-						{% elif user.student|mutual:person == 1 %}
-							<p>You have 1 friend in common! </p>
-						{% endif %}
-					{% endif %}
-				{% endif %}
+          {% if person not in user.student.friends.all and person != user.student %}
+            {% if user.student|common:person > 1 %}
+              {% if user.student|mutual:person > 1 %}
+                <p>You have {{ user.student|common:person }} classes and {{ user.student|mutual:person }} friends in common! </p>
+              {% elif user.student|mutual:person == 1 %}
+                <p>You have {{ user.student|common:person }} classes and 1 friend in common! </p>
+              {% else %}
+                <p>You have {{ user.student|common:person }} classes in common! </p>
+              {% endif %}
+            {% elif user.student|common:person == 1 %}
+              {% if user.student|mutual:person > 1 %}
+                <p>You have 1 class and {{ user.student|mutual:person }} friends in common! </p>
+              {% elif user.student|mutual:person == 1 %}
+                <p>You have 1 class and 1 friend in common! </p>
+              {% else %}
+                <p>You have 1 class in common! </p>
+              {% endif %}
+            {% else %}
+              {% if user.student|mutual:person > 1 %}
+                <p>You have {{ user.student|mutual:person }} friends in common! </p>
+              {% elif user.student|mutual:person == 1 %}
+                <p>You have 1 friend in common! </p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
 
-				<footer>
-					{% if user.username %}
-						{% if person == user.student %}
-							<h4>Your Profile</h4>
-						{% elif person in user.student.friends.all %}
-							<h4>Already friends!</h4>
-						{% else %}
-							<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
-								{% csrf_token %}
-								<input type="submit" class="button large" value="Add Friend">
-							</form>
+					<footer>
+						{% if user.username %}
+							{% if person == user.student %}
+								<h4>Your Profile</h4>
+							{% elif person in user.student.friends.all %}
+								<h4>Already friends!</h4>
+							{% else %}
+								<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Add Friend">
+								</form>
+							{% endif %}
 						{% endif %}
-					{% endif %}
-				</footer>
-			</article>
+					</footer>
+				</article>
 			{% endif %}
 		{% endfor %}
-
-		<!-- Pagination -->
-		<ul class="actions pagination">
-			{% if page_obj.has_previous %}
-			<li><a href="?page={{ page_obj.previous_page_number }}" class="button large previous">Previous Page</a></li>
-			{% endif %}
-
-			{% if page_obj.has_next %}
-			<li><a href="?page={{ page_obj.next_page_number }}" class="button large next">Next Page</a></li>
-			{% endif %}
-		</ul>
 	{% endif %}
+
+
+	<!-- Pagination -->
+	<ul class="actions pagination">
+		{% if page_obj.has_previous %}
+		<li><a href="?page={{ page_obj.previous_page_number }}" class="button large previous">Previous Page</a></li>
+		{% endif %}
+
+		{% if page_obj.has_next %}
+		<li><a href="?page={{ page_obj.next_page_number }}" class="button large next">Next Page</a></li>
+		{% endif %}
+	</ul>
 </div>
 
 {% endblock %}
