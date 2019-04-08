@@ -68,7 +68,7 @@
 							{% elif class in user.student.classes.all %}
 								<h4>Already added class</h4>
 							{% else %}
-							<form action="{% url 'skillMatch:add_class' person.user.username class.id %}" method="post">
+							<form action="{% url 'skillMatch:add_class' user.username class.id %}" method="post">
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Class">
 								</form>
@@ -102,7 +102,7 @@
 							{% elif skill in user.student.skills.all %}
 								<h4>Already added skill</h4>
 							{% else %}
-							<form action="{% url 'skillMatch:add_skill' person.user.username skill.id %}" method="post">
+							<form action="{% url 'skillMatch:add_skill' user.username skill.id %}" method="post">
 									{% csrf_token %}
 									<input type="submit" class="button large" value="Add Skill">
 								</form>
