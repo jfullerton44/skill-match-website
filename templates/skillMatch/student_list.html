@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load extras %}
 
 {% block content %}
     <div id="main">
@@ -22,6 +23,32 @@
 					</header>
 
 					<p>Bio: {{ person.bio }}</p>
+
+					{% if person not in user.student.friends.all and person != user.student %}
+						{% if user.student|common:person > 1 %}
+							{% if user.student|mutual:person > 1 %}
+								<p>You have {{ user.student|common:person }} classes and {{ user.student|mutual:person }} friends in common! </p>
+							{% elif user.student|mutual:person == 1 %}
+								<p>You have {{ user.student|common:person }} classes and 1 friend in common! </p>
+							{% else %}
+								<p>You have {{ user.student|common:person }} classes in common! </p>
+							{% endif %}
+						{% elif user.student|common:person == 1 %}
+							{% if user.student|mutual:person > 1 %}
+								<p>You have 1 class and {{ user.student|mutual:person }} friends in common! </p>
+							{% elif user.student|mutual:person == 1 %}
+								<p>You have 1 class and 1 friend in common! </p>
+							{% else %}
+								<p>You have 1 class in common! </p>
+							{% endif %}
+						{% else %}
+							{% if user.student|mutual:person > 1 %}
+								<p>You have {{ user.student|mutual:person }} friends in common! </p>
+							{% elif user.student|mutual:person == 1 %}
+								<p>You have 1 friend in common! </p>
+							{% endif %}
+						{% endif %}
+					{% endif %}
 
 					<footer>
 						<ul class="actions">
