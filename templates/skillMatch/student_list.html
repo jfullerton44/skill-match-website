@@ -24,9 +24,21 @@
 					<p>Bio: {{ person.bio }}</p>
 
 					<footer>
-						<ul class="actions">
-							<li><a href="single.html" class="button large">Add Friend</a></li>
-						</ul>
+							{% if user.username %}
+							{% if person == user.student %}
+								<h4>Your Profile</h4>
+							{% elif person in user.student.friends.all %}
+								<h4>Already friends!</h4>
+							{% else %}
+							<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Add Friend">
+							</form>
+						{% endif %}
+			
+					<!-- <ul class="actions">
+
+					</ul> -->
 {#						<ul class="stats">#}
 {#							<li><a href="#">General</a></li>#}
 {#							<li><a href="#" class="icon fa-heart">28</a></li>#}
@@ -46,6 +58,26 @@
 							<h2><a href='#'>{{ class }}</a></h2>
 						</div>
 					</header>
+
+					<footer>
+							{% if user.username %}
+							{% if person == user.student %}
+								<h4>Your Profile</h4>
+							{% elif person in user.student.classes.all %}
+								<h4>Already friends!</h4>
+							{% else %}
+							<form action="{% url 'skillMatch:addclass' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Add Class">
+								</form>
+						{% endif %}
+		
+{#						<ul class="stats">#}
+{#							<li><a href="#">General</a></li>#}
+{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
+{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
+{#						</ul>#}
+					</footer>
 				</article>
 			{% endfor %}
 		</ul>
@@ -59,6 +91,26 @@
 							<h2><a href="#">{{ skill }}</a></h2>
 						</div>
 					</header>
+
+					<footer>
+							{% if user.username %}
+							{% if person == user.student %}
+								<h4>Your Profile</h4>
+							{% elif person in user.student.skills.all %}
+								<h4>Already friends!</h4>
+							{% else %}
+							<form action="{% url 'skillMatch:addSkill' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Add Skill">
+								</form>
+						{% endif %}
+			
+{#						<ul class="stats">#}
+{#							<li><a href="#">General</a></li>#}
+{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
+{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
+{#						</ul>#}
+					</footer>
 				</article>
 			{% endfor %}
     {% else %}
