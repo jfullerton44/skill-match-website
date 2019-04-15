@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Student, Class, Skill
-
+from django.contrib.auth.models import User
+from .templatetags.extras import common, mutual
 
 class TestTest(TestCase):
     def test_easy(self):
@@ -83,6 +84,31 @@ class ClassModelTests(TestCase):
         test_class = create_class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
         clas = Class.objects.filter(professor__icontains="bob")
         self.assertEqual(0, len(clas))
+
+class TemplateTagsTests(TestCase):
+    def test_mutual_negative(self):
+        test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
+        test_user_b = User.objects.create_user('jane smith', '', 'jsmith2')
+        self.assertEqual(0, mutual(test_user_a.student, test_user_b.student))
+    def test_mutual_positive(self):
+        test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
+        test_user_b = User.objects.create_user('jane smith', '', 'jsmith2')
+        test_user_c = User.objects.create_user('joel smith', '', 'jsmith3')
+        test_user_a.student.friends.add(test_user_c.student)
+        test_user_b.student.friends.add(test_user_c.student)
+        self.assertEqual(1, mutual(test_user_a.student, test_user_b.student))
+
+    def test_common_negative(self):
+        test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
+        test_user_b = User.objects.create_user('jane smith', '', 'jsmith2')
+        self.assertEqual(0, common(test_user_a.student, test_user_b.student))
+    def test_common_positive(self):
+        test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
+        test_user_b = User.objects.create_user('jane smith', '', 'jsmith2')
+        test_class = create_class(prefix="CS", course_number="2150", professor="Floryan", semester="F19")
+        test_user_a.student.classes.add(test_class)
+        test_user_b.student.classes.add(test_class)
+        self.assertEqual(1, common(test_user_a.student, test_user_b.student))
 
 def create_student(name, bio, sex):
     return Student.objects.create(name=name, bio=bio, sex=sex)
