@@ -57,10 +57,3 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True) # captures time of object creation
     # likes = models.IntegerField()   # upvote and downvote feature?
 
-
-# class Reply(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)    # each reply must be attached to exactly one post (what about reply threads?)
-#     author = models.ForeignKey(User, on_delete=models.CASCADE)
-#     content = models.CharField(max_length=250)
-#     date = models.DateTimeField(input_formats=['%m/%d/%y %H:%M'])
-#     likes = models.IntegerField()   # upvote and downvote feature?

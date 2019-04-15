@@ -27,7 +27,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 					<li><a href={% url 'skillMatch:index' %}>Dashboard</a></li>
 					{% if user.username %}
 					<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
-					<li><a href={% url 'skillMatch:post_list' %}>Posts</a></li>
+					<li><a href={% url 'skillMatch:post_list' True%}>Posts</a></li>
+					{% else %}
+					<li><a href={% url 'skillMatch:post_list' False%}>Posts</a></li>
 					{% endif %}
 				</ul>
 			</nav>
@@ -74,14 +76,22 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 							<p>See and edit your profile</p>
 						</a>
 					</li>
-					{% endif %}
-					
+
 					<li>
-						<a href={% url 'skillMatch:post_list' %}>
-							<h3>Posts</h3>
+						<a href={% url 'skillMatch:post_list' True %}>
+							<h2>Posts</h2>
 							<p>See what other students are up to</p>
 						</a>
 					</li>
+
+					{% else %}
+					<li>
+						<a href={% url 'skillMatch:post_list' False %}>
+							<h2>Posts</h2>
+							<p>See what other students are up to</p>
+						</a>
+					</li>
+					{% endif %}
 					{#          <li>#}
 					{#            <a href="#">#}
 					{#              <h3>Etiam sed consequat</h3>#}
@@ -132,45 +142,45 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 					<article class="mini-post">
 						<header>
 							<h3><a href={% url 'skillMatch:profile' 'jf8he' %}>Jacob Fullerton</a></h3>
-							<a href={% url 'skillMatch:profile' 'jf8he' %} class="author"><img src="https://i.imgur.com/mDVFIvA.jpg" alt="" /></a>
+{#							<a href={% url 'skillMatch:profile' 'jf8he' %} class="author"><img src="https://i.imgur.com/mDVFIvA.jpg" alt="" /></a>#}
 						</header>
-						<a href={% url 'skillMatch:profile' 'jf8he' %} class="image"><img src="https://i.imgur.com/mDVFIvA.jpg" alt="" /></a>
+						<a href={% url 'skillMatch:profile' 'jf8he' %} class="image"><img src="https://i.imgur.com/mDVFIvA.jpg" alt="https://i.imgur.com/Qn95ZJN.png" /></a>
 					</article>
 
 					<!-- Mini Post -->
 					<article class="mini-post">
 						<header>
 							<h3><a href={% url 'skillMatch:profile' 'jtr5ee' %}>Jeffery Rhoads</a></h3>
-							<a href={% url 'skillMatch:profile' 'jtr5ee' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+{#							<a href={% url 'skillMatch:profile' 'jtr5ee' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>#}
 						</header>
-						<a href={% url 'skillMatch:profile' 'jtr5ee' %} class="image"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+						<a href={% url 'skillMatch:profile' 'jtr5ee' %} class="image"><img src="https://i.imgur.com/pUjM07h.jpg" alt="https://i.imgur.com/Qn95ZJN.png" /></a>
 					</article>
 
 					<!-- Mini Post -->
 					<article class="mini-post">
 						<header>
 							<h3><a href={% url 'skillMatch:profile' 'hlu8jm' %}>Hua Uehara</a></h3>
-							<a href={% url 'skillMatch:profile' 'hlu8jm' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+{#							<a href={% url 'skillMatch:profile' 'hlu8jm' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>#}
 						</header>
-						<a href={% url 'skillMatch:profile' 'hlu8jm' %} class="image"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+						<a href={% url 'skillMatch:profile' 'hlu8jm' %} class="image"><img src="https://i.imgur.com/zSAcCyR.jpg" alt="https://i.imgur.com/Qn95ZJN.png" /></a>
 					</article>
 
 					<!-- Mini Post -->
 					<article class="mini-post">
 						<header>
 							<h3><a href={% url 'skillMatch:profile' 'kr6eg' %}>Keerthi Radhakrishnan</a></h3>
-							<a href={% url 'skillMatch:profile' 'kr6eg' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+{#							<a href={% url 'skillMatch:profile' 'kr6eg' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>#}
 						</header>
-						<a href={% url 'skillMatch:profile' 'kr6eg' %} class="image"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+						<a href={% url 'skillMatch:profile' 'kr6eg' %} class="image"><img src="https://i.imgur.com/ii13CWi.jpg" alt="https://i.imgur.com/Qn95ZJN.png" /></a>
 					</article>
 
 					<!-- Mini Post -->
 					<article class="mini-post">
 						<header>
 							<h3><a href={% url 'skillMatch:profile' 'ab5ep' %}>Austin Baney</a></h3>
-							<a href={% url 'skillMatch:profile' 'ab5ep' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+{#							<a href={% url 'skillMatch:profile' 'ab5ep' %} class="author"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>#}
 						</header>
-						<a href={% url 'skillMatch:profile' 'ab5ep' %} class="image"><img src="https://i.imgur.com/Qn95ZJN.png" alt="" /></a>
+						<a href={% url 'skillMatch:profile' 'ab5ep' %} class="image"><img src="https://i.imgur.com/lKdPkaD.jpg" alt="https://i.imgur.com/Qn95ZJN.png" /></a>
 					</article>
 
 				</div>

@@ -162,13 +162,25 @@ def addclass(request, user_id, class_id):
 
 
     
-def postListView(request): # for now, gets every post
-    posts_ordered = Post.objects.all().order_by('-date') # descending order
+def postListView(request, filter): # displays every post from newest to oldest, optionally filters for friend posts only
+    # check if user is not logged in and just typed True into url?
+    if filter == "True":  # may only pass in True if user is logged in
+        authors = set()
+        me = Student.objects.get(user__username=request.user)
+        friends = me.friends.all()
+        authors.update(friends)
+        authors.update({me})
+        posts_ordered = Post.objects.filter(author__in=authors).order_by('-date')
+    else:
+        posts_ordered = Post.objects.all().order_by('-date')
+
+
     if posts_ordered:
         post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
                         for post in posts_ordered]
         context = {
-            'post_results': post_results
+            'post_results': post_results,
+            'filter': filter,
         }
     else:
         context = {}
