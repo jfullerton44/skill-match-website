@@ -134,6 +134,30 @@ class ClassModelTests(TestCase):
         clas = Class.objects.filter(professor__icontains="bLOOm")
         self.assertNotEqual(0, len(clas))
 
+class SkillModelTests(TestCase):
+	def test_Skill_created(self):
+		name = "blob"
+		test_Skill = Skill(name=name)
+		self.assertIsInstance(test_Skill, (Skill))
+
+	def test_insert_Skill(self):
+		name = "blob"
+		test_Skill = create_skill(name=name)
+		clas = Skill.objects.get(name="blob")
+		self.assertNotEqual(clas, None)
+
+	def test_find_bad_Skill(self):
+		name = "blob"
+		test_Skill = create_skill(name=name)
+		clas = Skill.objects.filter(name__icontains="bosadsadb")
+		self.assertEqual(0, len(clas))
+
+	def test_find_Skill_no_case(self):	
+		name = "blob"
+		test_Skill = create_skill(name=name)
+		clas = Skill.objects.filter(name__icontains="blob")
+		self.assertNotEqual(0, len(clas))
+
 class TemplateTagsTests(TestCase):
     def test_mutual_negative(self):
         test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
@@ -161,6 +185,9 @@ class TemplateTagsTests(TestCase):
 
 def create_student(name, bio, sex):
     return Student.objects.create(name=name, bio=bio, sex=sex)
+
+def create_skill(name):
+	return Skill.objects.create(name=name)
 
 def create_class(prefix, course_number, professor, semester):
     return Class.objects.create(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
