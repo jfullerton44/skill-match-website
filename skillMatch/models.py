@@ -42,7 +42,7 @@ class Class(models.Model):
     prefix = models.CharField(max_length=5)
     course_number = models.CharField(max_length=5)
     professor = models.CharField(max_length=50)
-    semester = models.CharField(max_length=50)
+    semester = models.CharField(max_length=3)
 
     def __str__(self):
         return "%s %s Semester: %s" % (self.prefix, self.course_number, self.semester)
