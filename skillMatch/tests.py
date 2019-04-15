@@ -29,6 +29,27 @@ class StudentModelTests(TestCase):
         student = Student.objects.get(name="John Smith")
         self.assertEqual(student.name, "John Smith")
 
+    def test_search_no_case(self):
+        name = "John Smith"
+        bio = "hello i am a student"
+        id = "js3fe"
+        sex = "M"
+        test_student = Student(name=name, bio=bio, sex=sex)
+        create_student(name, bio, sex)
+        student = Student.objects.filter(name__icontains="jOhN")
+        self.assertIsNotNone(student)
+
+    def test_good_user(self):
+        user = "jjjj"
+        User.objects.create(username=user)
+        self.assertIsNotNone(User.objects.get(username="jjjj"))
+
+    def test_no_user(self):
+        user = ""
+        User.objects.create(username=user)
+        with self.assertRaises(Exception):
+            User.objects.get(username="jjjj")
+
     def test_insert_bad_student(self):
         bio = "hello i am a student"
         id = "jf8he"
@@ -36,6 +57,14 @@ class StudentModelTests(TestCase):
         create_student("", bio, sex)
         with self.assertRaises(Exception):
             Student.objects.get(computing_id="js3fe")
+
+    def test_insert_bad_student2(self):
+        bio = "hello i am a student"
+        id = "jf8he"
+        sex = "M"
+        create_student("", bio, sex)
+        with self.assertRaises(Exception):
+            Student.objects.get(computing_id="")
 
     def test_insert_same_computing_id(self):
         name = "John Smith"
@@ -84,6 +113,26 @@ class ClassModelTests(TestCase):
         test_class = create_class(prefix=prefix, course_number=course_number, professor=professor, semester=semester)
         clas = Class.objects.filter(professor__icontains="bob")
         self.assertEqual(0, len(clas))
+
+    def test_find_class_no_case(self):
+        prefix = "CS"
+        course_number = "2150"
+        professor = "Aaron Bloomfield"
+        semester = "F19"
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor,
+                                  semester=semester)
+        clas = Class.objects.filter(professor__icontains="aaron")
+        self.assertNotEqual(0, len(clas))
+
+    def test_find_class_no_case_lastname(self):
+        prefix = "CS"
+        course_number = "2150"
+        professor = "Aaron Bloomfield"
+        semester = "F19"
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor,
+                                  semester=semester)
+        clas = Class.objects.filter(professor__icontains="bLOOm")
+        self.assertNotEqual(0, len(clas))
 
 class TemplateTagsTests(TestCase):
     def test_mutual_negative(self):
