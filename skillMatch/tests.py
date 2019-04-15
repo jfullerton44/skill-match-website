@@ -29,6 +29,16 @@ class StudentModelTests(TestCase):
         student = Student.objects.get(name="John Smith")
         self.assertEqual(student.name, "John Smith")
 
+    def test_search_no_case(self):
+        name = "John Smith"
+        bio = "hello i am a student"
+        id = "js3fe"
+        sex = "M"
+        test_student = Student(name=name, bio=bio, sex=sex)
+        create_student(name, bio, sex)
+        student = Student.objects.filter(name__icontains="jOhN")
+        self.assertIsNotNone(student)
+
     def test_good_user(self):
         user = "jjjj"
         User.objects.create(username=user)
