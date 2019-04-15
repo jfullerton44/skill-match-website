@@ -8,6 +8,8 @@ from django.utils import timezone
 from .forms import StudentForm
 from .models import Student, Skill, Class, Post
 
+class Meta:
+   ordering = ['-id']
 
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
@@ -24,9 +26,9 @@ class ProfileCreateView(generic.CreateView):
 
 def studentProfileView(request, user_id):
     person = get_object_or_404(User, username=user_id)
-    person_classes = person.student.classes.all()
-    person_skills = person.student.skills.all()
-    person_friends = person.student.friends.all()
+    person_classes = person.student.classes.all().order_by('id')
+    person_skills = person.student.skills.all().order_by('id')
+    person_friends = person.student.friends.all().order_by('id')
     picture = person.student.picture
     context = {
         'person': person,
@@ -39,7 +41,7 @@ def studentProfileView(request, user_id):
 
 def classDetailView(request, course_pk) :
     course = get_object_or_404(Class, pk=course_pk)
-    students = course.student_set.all()
+    students = course.student_set.all().order_by('id')
     context = {
         'course' : course,
         'students' : students
@@ -137,7 +139,7 @@ class skillListView(generic.ListView):
 def addSkill(request, user_id, skill_id):
     person = get_object_or_404(User, username=user_id)
     student = person.student
-    person_skills = person.student.skills.all()
+    person_skills = person.student.skills.all().order_by('id')
     skill = Skill.objects.filter(id=skill_id).values_list('id', flat=True)
     student.skills.add(skill[0])
     # student.update()
@@ -154,7 +156,7 @@ class classListView(generic.ListView):
 def addclass(request, user_id, class_id):
     person = get_object_or_404(User, username=user_id)
     student = person.student
-    person_class = person.student.classes.all()
+    person_class = person.student.classes.all().order_by('id')
     classToAdd = Class.objects.filter(id=class_id).values_list('id', flat=True)
     student.classes.add(classToAdd[0])
     # student.update()
@@ -167,7 +169,7 @@ def postListView(request, filter): # displays every post from newest to oldest, 
     if filter == "True":  # may only pass in True if user is logged in
         authors = set()
         me = Student.objects.get(user__username=request.user)
-        friends = me.friends.all()
+        friends = me.friends.all().order_by('id')
         authors.update(friends)
         authors.update({me})
         posts_ordered = Post.objects.filter(author__in=authors).order_by('-date')
