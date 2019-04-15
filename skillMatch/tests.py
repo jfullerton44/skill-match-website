@@ -104,6 +104,26 @@ class ClassModelTests(TestCase):
         clas = Class.objects.filter(professor__icontains="bob")
         self.assertEqual(0, len(clas))
 
+    def test_find_class_no_case(self):
+        prefix = "CS"
+        course_number = "2150"
+        professor = "Aaron Bloomfield"
+        semester = "F19"
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor,
+                                  semester=semester)
+        clas = Class.objects.filter(professor__icontains="aaron")
+        self.assertNotEqual(0, len(clas))
+
+    def test_find_class_no_case_lastname(self):
+        prefix = "CS"
+        course_number = "2150"
+        professor = "Aaron Bloomfield"
+        semester = "F19"
+        test_class = create_class(prefix=prefix, course_number=course_number, professor=professor,
+                                  semester=semester)
+        clas = Class.objects.filter(professor__icontains="bLOOm")
+        self.assertNotEqual(0, len(clas))
+
 class TemplateTagsTests(TestCase):
     def test_mutual_negative(self):
         test_user_a = User.objects.create_user('john smith', '', 'jsmith1')
