@@ -29,6 +29,17 @@ class StudentModelTests(TestCase):
         student = Student.objects.get(name="John Smith")
         self.assertEqual(student.name, "John Smith")
 
+    def test_good_user(self):
+        user = "jjjj"
+        User.objects.create(username=user)
+        self.assertIsNotNone(User.objects.get(username="jjjj"))
+
+    def test_no_user(self):
+        user = ""
+        User.objects.create(username=user)
+        with self.assertRaises(Exception):
+            User.objects.get(username="jjjj")
+
     def test_insert_bad_student(self):
         bio = "hello i am a student"
         id = "jf8he"
@@ -36,6 +47,14 @@ class StudentModelTests(TestCase):
         create_student("", bio, sex)
         with self.assertRaises(Exception):
             Student.objects.get(computing_id="js3fe")
+
+    def test_insert_bad_student2(self):
+        bio = "hello i am a student"
+        id = "jf8he"
+        sex = "M"
+        create_student("", bio, sex)
+        with self.assertRaises(Exception):
+            Student.objects.get(computing_id="")
 
     def test_insert_same_computing_id(self):
         name = "John Smith"
