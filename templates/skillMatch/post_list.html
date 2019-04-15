@@ -7,6 +7,11 @@
 		<ul class="actions">
 			{% if user.username %}
 			<li><a href={% url 'skillMatch:post_create' user.username %} class="button large">Create Post</a></li>
+				{% if filter == "True" %}
+				<li><a href={% url 'skillMatch:post_list' False %} class="button large">Show All Posts</a></li>
+				{% else %}
+				<li><a href={% url 'skillMatch:post_list' True %} class="button large">Show Posts From Friends</a></li>
+				{% endif %}
 			{% endif %}
 		</ul>
 	<!-- </article> -->

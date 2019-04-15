@@ -27,7 +27,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 					<li><a href={% url 'skillMatch:index' %}>Dashboard</a></li>
 					{% if user.username %}
 					<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
-					<li><a href={% url 'skillMatch:post_list' %}>Posts</a></li>
+					<li><a href={% url 'skillMatch:post_list' True%}>Posts</a></li>
+					{% else %}
+					<li><a href={% url 'skillMatch:post_list' False%}>Posts</a></li>
 					{% endif %}
 				</ul>
 			</nav>
@@ -74,14 +76,22 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 							<p>See and edit your profile</p>
 						</a>
 					</li>
-					{% endif %}
-					
+
 					<li>
-						<a href={% url 'skillMatch:post_list' %}>
+						<a href={% url 'skillMatch:post_list' True %}>
 							<h3>Posts</h3>
 							<p>See what other students are up to</p>
 						</a>
 					</li>
+
+					{% else %}
+					<li>
+						<a href={% url 'skillMatch:post_list' False %}>
+							<h3>Posts</h3>
+							<p>See what other students are up to</p>
+						</a>
+					</li>
+					{% endif %}
 					{#          <li>#}
 					{#            <a href="#">#}
 					{#              <h3>Etiam sed consequat</h3>#}
