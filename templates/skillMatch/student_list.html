@@ -146,6 +146,12 @@
 			{% endfor %}
     {% else %}
         No matching results.
+        <ul class="actions">
+        <li><a href = "{% url 'skillMatch:skill_create' %}" class="button large">Create a New Skill</a></li>
+        </ul>
+        <ul class="actions">
+        <li><a href = "{% url 'skillMatch:class_create' %}" class="button large">Create a New Class</a></li>
+        </ul>
     {% endif %}
  </div>
 {% endblock %}

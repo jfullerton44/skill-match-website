@@ -5,6 +5,9 @@
     <div id="main">
     {% if classes %}
         <ul>
+        <ul class="actions">
+        <li><a href = "{% url 'skillMatch:class_create' %}" class="button large">Create a New Class</a></li>
+        </ul>
             {% for class in classes %}
 				<article class="post">
 					<header>

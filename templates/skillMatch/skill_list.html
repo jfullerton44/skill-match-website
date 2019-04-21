@@ -3,6 +3,9 @@
 
 {% block content %}
     <div id="main">
+    <ul class="actions">
+        <li><a href = "{% url 'skillMatch:skill_create' %}" class="button large">Create a New Skill</a></li>
+    </ul>
     {% if skills %}
         <ul>
             {% for skill in skills %}
