@@ -107,9 +107,6 @@
 					<input type="submit" class="button large" value="Remove Friend">
 				</form>
 			{% else %}
-				{{person.get_full_name}}
-				<br>
-				{{user.student.friends.all}}
 				<form action="{% url 'skillMatch:addfriend' person.username %}" method="post">
 					{% csrf_token %}
 					<input type="submit" class="button large" value="Add Friend">
