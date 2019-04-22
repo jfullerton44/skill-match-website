@@ -99,9 +99,24 @@
 				{% endif %}
 			{% endif %}
 		</div>
-
+		{% if user.username %}
+			{% if user == person %}
+			{% elif person.student in user.student.friends.all %}
+				<form action="{% url 'skillMatch:removefriend' person.username %}" method="post">
+					{% csrf_token %}
+					<input type="submit" class="button large" value="Remove Friend">
+				</form>
+			{% else %}
+				{{person.get_full_name}}
+				<br>
+				{{user.student.friends.all}}
+				<form action="{% url 'skillMatch:addfriend' person.username %}" method="post">
+					{% csrf_token %}
+					<input type="submit" class="button large" value="Add Friend">
+				</form>
+			{% endif %}
+		{% endif %}
 		<br>
-		
 		<footer>
 			{% if user == person %}
 				<a href="{% url 'skillMatch:student_edit' person.username %}" class="button large previous">Edit Profile</a>

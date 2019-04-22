@@ -120,6 +120,7 @@ def studentListView(request):
 	return render(request, 'skillMatch/student_list.html/', context)
 
 
+
 def addfriend(request, student_id):
     friend_being_added = Student.objects.get(user__username=student_id)
     person_adding_friend = Student.objects.get(user__username=request.user)
@@ -127,6 +128,13 @@ def addfriend(request, student_id):
     person_adding_friend.save()
     return studentProfileView(request, request.user.username)
 
+
+def removefriend(request, student_id):
+    friend_being_removed = Student.objects.get(user__username=student_id)
+    person_removing_friend = Student.objects.get(user__username=request.user)
+    person_removing_friend.friends.remove(friend_being_removed)
+    person_removing_friend.save()
+    return studentProfileView(request, request.user.username)
 
 
 class skillListView(generic.ListView):

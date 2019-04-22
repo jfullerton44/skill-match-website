@@ -58,7 +58,10 @@
 							{% if person == user.student %}
 								<h4>Your Profile</h4>
 							{% elif person in user.student.friends.all %}
-								<h4>Already friends!</h4>
+								<form action="{% url 'skillMatch:removefriend' person.user %}" method="post">
+									{% csrf_token %}
+									<input type="submit" class="button large" value="Remove Friend">
+								</form>
 							{% else %}
 								<form action="{% url 'skillMatch:addfriend' person.user %}" method="post">
 									{% csrf_token %}
