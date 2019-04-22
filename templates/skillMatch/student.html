@@ -101,7 +101,7 @@
 		</div>
 		{% if user.username %}
 			{% if person == user %}
-			{% elif person in user.student.friends.all %}
+			{% elif person in user.friends.all %}
 				<form action="{% url 'skillMatch:removefriend' person.username %}" method="post">
 					{% csrf_token %}
 					<input type="submit" class="button large" value="Remove Friend">
