@@ -24,7 +24,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 			<h1><a href={% url 'home' %}>Student Skill Match</a></h1>
 			<nav class="links">
 				<ul>
-					<li><a href={% url 'skillMatch:index' %}>Dashboard</a></li>
+					<li><a href={% url 'skillMatch:index' %}>Discover</a></li>
 					{% if user.username %}
 					<li><a href={% url 'skillMatch:profile' user.username %}>Your Profile</a></li>
 					<li><a href={% url 'skillMatch:post_list' True%}>Posts</a></li>
@@ -73,7 +73,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 				<ul class="links">
 					<li>
 						<a href={% url 'skillMatch:index' %}>
-							<h2>Dashboard</h2>
+							<h2>Discover</h2>
 							<p>Find other students</p>
 						</a>
 					</li>
