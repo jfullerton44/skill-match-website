@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .forms import StudentForm
-from .models import Student, Skill, Class, Post
+from .models import Student, Skill, Class, Post, Comment
 
 class Meta:
    ordering = ['-id']
@@ -86,6 +86,23 @@ class PostCreateView(generic.CreateView):
     #     uname = self.kwargs['username']
     #     self.object.author = Student.objects.get(user__username=uname)
     #     return reverse_lazy('skillMatch:index')
+
+
+class CommentCreateView(generic.CreateView):
+    model = Comment
+    fields = ('content',)
+    success_url = reverse_lazy('skillMatch:index')
+
+    def form_valid(self, form):
+        uname = self.kwargs['user']
+        mystudent = Student.objects.get(user__username=uname)
+        form.instance.author = mystudent
+
+        postID = self.kwargs['post']
+        mypost = Post.objects.get(pk=postID)
+        form.instance.post = mypost
+
+        return super(CommentCreateView, self).form_valid(form)
 
 
 def studentListView(request):
@@ -186,7 +203,11 @@ def postListView(request, filter): # displays every post from newest to oldest, 
 
 
     if posts_ordered:
-        post_results = [{'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url, 'title': post.title, 'content': post.content, 'course': str(post.course), 'skills': [skill.name for skill in post.skills.all()], 'date': post.date}
+        post_results = [{'id': post.id, 'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url,
+        'title': post.title, 'content': post.content, 'course': str(post.course), 
+        'skills': [skill.name for skill in post.skills.all()], 
+        'comments': [{'author_user': comment.author.user.username, 'author_name': comment.author.name, 'content': comment.content} for comment in Comment.objects.filter(post=post).order_by('-date')], 
+        'date': post.date}
                         for post in posts_ordered]
         context = {
             'post_results': post_results,

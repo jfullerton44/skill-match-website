@@ -57,3 +57,8 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True) # captures time of object creation
     # likes = models.IntegerField()   # upvote and downvote feature?
 
+class Comment(models.Model):
+    author = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    content = models.CharField(max_length=400)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)    # each comment relates to ONE post
+    date = models.DateTimeField(auto_now_add=True) # captures time of object creation

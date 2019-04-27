@@ -67,6 +67,20 @@
 							<li><a href="#" class="icon fa-comment">128</a></li>
 						</ul> -->
 					</footer>
+
+					{% if post.comments %}
+						{% for comment in post.comments %}
+							<article class="mini-post">
+								<header>
+									<b><a href={% url 'skillMatch:profile' comment.author_user %}> {{ comment.author_name }} </a></b>
+									{{ comment.content }}
+								</header>
+							</article>
+						{% endfor %}
+					{% endif %}
+					{% if user.username %}
+						<a href={% url 'skillMatch:comment' user.username post.id %} class="button large">Add Comment</a>
+					{% endif %}
 				</article>
             {% endfor %}
         </ul>

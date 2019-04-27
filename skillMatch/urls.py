@@ -13,6 +13,7 @@ urlpatterns = [
     path('students/<slug:user>/edit/', views.StudentUpdateView.as_view(), name='student_edit'),
     path('createPost/<username>/',views.PostCreateView.as_view(),name='post_create'),
     path('posts/<slug:filter>/',views.postListView, name='post_list'),
+    path('comment/<user>/<post>/',views.CommentCreateView.as_view(), name='comment'),
     path('createClass/', views.ClassCreateView.as_view(), name='class_create'),
     path('createSkill/', views.SkillCreateView.as_view(), name='skill_create'),
     path('search/', views.studentListView, name='student_list'),
