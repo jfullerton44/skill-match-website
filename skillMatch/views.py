@@ -76,7 +76,7 @@ class SkillCreateView(generic.CreateView):
 class PostCreateView(generic.CreateView):
     model = Post
     fields = ('title', 'content', 'course', 'skills')
-    success_url = reverse_lazy('skillMatch:index')
+    success_url = reverse_lazy('skillMatch:post_list', kwargs={'filter':'True'})
     def form_valid(self, form):
         uname = self.kwargs['username']
         mystudent = Student.objects.get(user__username=uname)
@@ -91,7 +91,7 @@ class PostCreateView(generic.CreateView):
 class CommentCreateView(generic.CreateView):
     model = Comment
     fields = ('content',)
-    success_url = reverse_lazy('skillMatch:index')
+    success_url = reverse_lazy('skillMatch:post_list', kwargs={'filter':'True'})
 
     def form_valid(self, form):
         uname = self.kwargs['user']
@@ -190,7 +190,7 @@ def addclass(request, user_id, class_id):
 
     
 def postListView(request, filter): # displays every post from newest to oldest, optionally filters for friend posts only
-    # check if user is not logged in and just typed True into url?
+    # add message if filter on but no friends added?
     if filter == "True":  # may only pass in True if user is logged in
         authors = set()
         me = Student.objects.get(user__username=request.user)
@@ -206,7 +206,7 @@ def postListView(request, filter): # displays every post from newest to oldest, 
         post_results = [{'id': post.id, 'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url,
         'title': post.title, 'content': post.content, 'course': str(post.course), 
         'skills': [skill.name for skill in post.skills.all()], 
-        'comments': [{'author_user': comment.author.user.username, 'author_name': comment.author.name, 'content': comment.content} for comment in Comment.objects.filter(post=post).order_by('-date')], 
+        'comments': [{'author_user': comment.author.user.username, 'author_name': comment.author.name, 'content': comment.content} for comment in Comment.objects.filter(post=post).order_by('date')], 
         'date': post.date}
                         for post in posts_ordered]
         context = {
