@@ -14,27 +14,13 @@
 						<div class="title">
 							<h2>{{ class.prefix}}  {{ class.course_number }}  {{ class.professor }}  {{ class.semester }} </h2>
 						</div>
-{#						<div class="meta">#}
-							<a href={% url 'skillMatch:profile' person.user %} class="author">
-{#								<!-- <span class="name">#}
-{#									{{ person.name }}#}
-{#								</span> -->#}
-{#								<img src="{{ person.picture.url }}" onerror="this.onerror=null; this.src='https://skillmatch13-media.s3.amazonaws.com/media/images/default-user.jpg';" class="img-responsive" />
-{#							</a>#}
-{#						</div>#}
 					</header>
 
-{#					<p>Bio: {{ person.bio }}</p>#}
 
 					<footer>
 						<ul class="actions">
 							<li><a href = '{% url "skillMatch:add_class" user.username class.id %}' class="button large">Add this Class</a></li>
 						</ul>
-{#						<ul class="stats">#}
-{#							<li><a href="#">General</a></li>#}
-{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
-{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
-{#						</ul>#}
 					</footer>
 				</article>
             {% endfor %}
