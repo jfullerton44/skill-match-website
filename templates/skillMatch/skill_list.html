@@ -14,27 +14,12 @@
 						<div class="title">
 							<h2>{{ skill.name }}</h2>
 						</div>
-{#						<div class="meta">#}
-{#							<a href="#" class="author">#}
-{#								<!-- <span class="name">#}
-{#									{{ person.name }}#}
-{#								</span> -->#}
-{#								<img src="{{ person.picture.url }}" class="img-responsive" />#}
-{#							</a>#}
-{#						</div>#}
 					</header>
-
-{#					<p>Bio: {{ person.bio }}</p>#}
 
 					<footer>
 						<ul class="actions">
 							<li><a href = '{% url "skillMatch:add_skill" user.username skill.id %}' class="button large">Add this skill</a></li>
 						</ul>
-{#						<ul class="stats">#}
-{#							<li><a href="#">General</a></li>#}
-{#							<li><a href="#" class="icon fa-heart">28</a></li>#}
-{#							<li><a href="#" class="icon fa-comment">128</a></li>#}
-{#						</ul>#}
 					</footer>
 				</article>
             {% endfor %}
