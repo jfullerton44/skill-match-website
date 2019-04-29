@@ -8,6 +8,16 @@ We'd prefer if you used our actual website link up on Heroku:
 
 Just point your web browser to that link and get started!
 
+## If you're Mark Sherriff
+Log into this link instead:
+
+`http://skillmatch13.herokuapp.com/admin`
+
+Use these credentials:
+
+- **Username**: Sherriff
+- **Password**: GradeLogin
+
 But if you want to run the local development server, follow these steps:
 
 - Clone the repo using a terminal and navigate your terminal into the root of the repository.
