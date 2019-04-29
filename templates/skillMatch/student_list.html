@@ -7,6 +7,7 @@
     {% if matching_students %}
         <ul>
             {% for person in matching_students %}
+			{% if person.user.email %}
 				<article class="post">
 					<header>
 						<div class="title">
@@ -17,7 +18,7 @@
 								<!-- <span class="name">
 									{{ person.name }}
 								</span> -->
-								<img src="{{ person.picture.url }}" onerror="https://skillmatch13-media.s3.amazonaws.com/media/images/default-user.jpg" class="img-responsive" />
+								<img src="{{ person.picture.url }}" onerror="this.onerror=null; this.src='https://skillmatch13-media.s3.amazonaws.com/media/images/default-user.jpg';" class="img-responsive" />
 							</a>
 						</div>
 					</header>
@@ -78,6 +79,7 @@
 					</footer>
 				</article>
 			</ul>
+			{% endif %}
             {% endfor %}
 
 
