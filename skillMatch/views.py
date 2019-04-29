@@ -9,7 +9,7 @@ from .forms import StudentForm
 from .models import Student, Skill, Class, Post, Comment
 
 class Meta:
-   ordering = ['-id']
+    ordering = ['-id']
 
 class IndexView(generic.ListView):
     template_name = 'skillMatch/index.html'
@@ -64,13 +64,13 @@ class StudentUpdateView(generic.UpdateView):
 class ClassCreateView(generic.CreateView):
     model = Class
     fields = ('prefix', 'course_number', 'professor', 'semester')
-    success_url = reverse_lazy('skillMatch:index')
+    success_url = reverse_lazy('skillMatch:class_list')
 
 
 class SkillCreateView(generic.CreateView):
     model = Skill
     fields = ('name',)
-    success_url = reverse_lazy('skillMatch:index')
+    success_url = reverse_lazy('skillMatch:skill_list')
 
 
 class PostCreateView(generic.CreateView):
@@ -106,35 +106,35 @@ class CommentCreateView(generic.CreateView):
 
 
 def studentListView(request):
-	students = set()
-	computing_id = request.GET.get('usr_query', '')
-	student_name = request.GET.get('usr_query', '')
-	class_name = request.GET.get('usr_query', '')
+    students = set()
+    computing_id = request.GET.get('usr_query', '')
+    student_name = request.GET.get('usr_query', '')
+    class_name = request.GET.get('usr_query', '')
 
-	id_results = Student.objects.filter(user__username__icontains=computing_id)
-	first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
-	last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
+    id_results = Student.objects.filter(user__username__icontains=computing_id)
+    first_name_results = Student.objects.filter(user__first_name__icontains=student_name)
+    last_name_results = Student.objects.filter(user__last_name__icontains=student_name)
 
-	students.update(id_results)
-	students.update(first_name_results)
-	students.update(last_name_results)
+    students.update(id_results)
+    students.update(first_name_results)
+    students.update(last_name_results)
 
-	classes = set()
-	classes.update(Class.objects.filter(prefix__icontains=class_name))
-	classes.update(Class.objects.filter(course_number__icontains=class_name))
-	classes.update(Class.objects.filter(semester__icontains=class_name))
-	classes.update(Class.objects.filter(professor__icontains=class_name))
-	
-	skills = set()
-	skills.update(Skill.objects.filter(name__icontains=class_name))
+    classes = set()
+    classes.update(Class.objects.filter(prefix__icontains=class_name))
+    classes.update(Class.objects.filter(course_number__icontains=class_name))
+    classes.update(Class.objects.filter(semester__icontains=class_name))
+    classes.update(Class.objects.filter(professor__icontains=class_name))
 
-	context = {
-		'matching_students': students,
-		'matching_classes' : classes,
-		'matching_skills' : skills
-	}
+    skills = set()
+    skills.update(Skill.objects.filter(name__icontains=class_name))
 
-	return render(request, 'skillMatch/student_list.html/', context)
+    context = {
+        'matching_students': students,
+        'matching_classes' : classes,
+        'matching_skills' : skills
+    }
+
+    return render(request, 'skillMatch/student_list.html/', context)
 
 
 
@@ -188,7 +188,7 @@ def addclass(request, user_id, class_id):
     return render(request, 'skillMatch/success.html')
 
 
-    
+
 def postListView(request, filter): # displays every post from newest to oldest, optionally filters for friend posts only
     # add message if filter on but no friends added?
     if filter == "True":  # may only pass in True if user is logged in
@@ -204,10 +204,10 @@ def postListView(request, filter): # displays every post from newest to oldest, 
 
     if posts_ordered:
         post_results = [{'id': post.id, 'author_user': post.author.user.username, 'author_name': post.author.name, 'author_picture': post.author.picture.url,
-        'title': post.title, 'content': post.content, 'course': str(post.course), 
-        'skills': [skill.name for skill in post.skills.all()], 
-        'comments': [{'author_user': comment.author.user.username, 'author_name': comment.author.name, 'content': comment.content} for comment in Comment.objects.filter(post=post).order_by('date')], 
-        'date': post.date}
+                         'title': post.title, 'content': post.content, 'course': str(post.course),
+                         'skills': [skill.name for skill in post.skills.all()],
+                         'comments': [{'author_user': comment.author.user.username, 'author_name': comment.author.name, 'content': comment.content} for comment in Comment.objects.filter(post=post).order_by('date')],
+                         'date': post.date}
                         for post in posts_ordered]
         context = {
             'post_results': post_results,
