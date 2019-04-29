@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>SkillMatch</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="skillmatch">SkillMatch</h1>
+<p>Welcome to SkillMatch! If you've ever been in a class and didn't know anyone you could reach out to study with, you've come to the right place. This is a Facebook / LinkedIn / Instagram-esque site where you can find study buddies for your classes through our message board and friends list systems!</p>
+<h1 id="how-to-get-started">How to get started</h1>
+<p>We'd prefer if you used our actual website link up on Heroku:</p>
+<p><code>http://skillmatch13.herokuapp.com/</code></p>
+<p>Just point your web browser to that link and get started!</p>
+<p>But if you want to run the local development server, follow these steps:</p>
+<ul>
+<li>
+<p>Clone the repo using a terminal and navigate your terminal into the root of the repository.</p>
+<p><code>git clone https://github.com/UVA-CS3240-S19/project-103-thirteen-reasons-why.git</code>
+<code>cd project-103-thirteen-reasons-why.git</code></p>
+</li>
+<li>
+<p>Run the development server.</p>
+<p><code>python3 manage.py runserver</code></p>
+</li>
+<li>
+<p>Open up a web browser and point it to the following url.</p>
+<p><code>http://127.0.0.1:8000/</code></p>
+</li>
+</ul>
+<p>You're set up for local browsing! Do note that the database needed by this site will be completely empty though - it won't be very exciting browsing on a completely empty website.</p>
+<h1 id="navigating-through-the-site">Navigating through the site</h1>
+<p>Our site is divided up into a few main sections when you first jump in - more things are visible if you log into the website. The site really opens up once you log in with either the button on the top or in the side bar. Here's how you log in:</p>
+<ul>
+<li>Click the <strong>Log In</strong> button.</li>
+<li>You'll be redirected to a Google login page - use some form of Google email you might have, like a <strong>.virginia.edu</strong> email or <strong>.gmail.com</strong> email.</li>
+</ul>
+<p>Anyway, we've got these for you if you just want to browse:</p>
+<h2 id="discover">Discover</h2>
+<p>Check out the students / professors who've signed up! You can see their skills, classes they've taken, classes they are taking, and study buddies they might already have.</p>
+<h2 id="posts">Posts</h2>
+<p>This is the 'forum' part of our site - users can write 'looking for group' - type messages to recruit study buddies, not unlike something you'd see on a large Facebook page.</p>
+<h2 id="search-bar">Search Bar</h2>
+<p>Up in the top right, we have a search bar that you can use to look up students, classes, or skills - just type what you want in and the search will return a list of users, classes, and skills that match your query.</p>
+<h2 id="side-bar">Side Bar</h2>
+<p>The side bar (click the top right corner) mostly has all of the things above in it.</p>
+<h1 id="after-logging-in">After logging in</h1>
+<p>Upon logging in, notice these changes:</p>
+<ul>
+<li>There's an <strong>Add Friend</strong> button on other peoples' user cards in the <strong>Discover</strong> section. This is how you network with other students.</li>
+<li>A <strong>Your Profile</strong> button appears on top which you can use to edit your profile.</li>
+<li>When you search friends, classes or skills, you'll be able to add them to your list from the search results.</li>
+<li>In the <strong>Posts</strong> section, you'll be able to comment on other peoples' posts or create posts of your own.</li>
+<li>You can filter posts to show only what your friends are sending, or all posts in the database.</li>
+</ul>
+<p>The side bar will also receive the same changes.</p>
+<h2 id="editing-your-profile">Editing your profile</h2>
+<p>After hitting the <strong>Your Profile</strong> button, you'll be directed to your user profile. Here, you can add classes, skills, and edit your details with one of the appropriately named buttons down (<strong>Edit Profile</strong>, <strong>Add Class</strong>, <strong>Add Skill</strong>) at the bottom. Pick the one you want, and start updating!</p>
+<h2 id="dont-see-a-class-or-a-skill">Don't see a class or a skill?</h2>
+<p>When you hit either <strong>Add Class</strong> or <strong>Add Skill</strong>, you'll be directed to a list of existing classes and skills in our database. If you don't see what you're looking for in this list, hit the button at the top of the list titled <strong>Create New Class</strong> or <strong>Create New Skill</strong>. Here, you can create a new skill by typing in the name of the skill, or create a class. One caveat is that with creating classes, you should adhere to the following format:</p>
+<ul>
+<li><strong>Prefix</strong>: 2 - 5 character abbreviation of class name, such as ENGR / ENWR.</li>
+<li><strong>Course Number</strong>: The number of the course you signed up as defined on Lou's List.</li>
+<li><strong>Professor</strong>: You can enter the professor's whole name, but we'd prefer if you'd use the last name only.</li>
+<li><strong>Semester</strong>: The season of the semester followed by the year. For instance, Spring 2019 becomes S19.</li>
+</ul>
+<h2 id="how-to-use-the-posting-system">How to use the posting system</h2>
+<p>If you want to recruit buddies, you're going to need to make use of the posting system we've got.</p>
+<p>First, navigate to the <strong>Posts</strong> section. Here, you can respond to other peoples' posts via comments - check for the <strong>Add Comment</strong> button. By default, the posts shown are from your friends, but you can toggle this to all users by clicking the <strong>Show All Posts</strong> button. It'll change to <strong>Show Friend Posts</strong> after this so you can toggle it back.</p>
+<p>You can also create your own posts by clicking the <strong>Create Post</strong> button and filling out the form.</p>
+<h1 id="suggestions">Suggestions?</h1>
+<p>That's all we've got for our site at present - if you've got more features you'd like us to add, or improvements you'd like us to make, let us know via a private message. Thanks for browsing!</p>
+
+    </body>
+    </html>
