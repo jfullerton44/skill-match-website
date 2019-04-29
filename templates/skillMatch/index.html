@@ -8,7 +8,7 @@
 	<!-- Post -->
 	{% if students %}
 		{% for person in students %}
-			{% if person.user.username %}
+			{% if person.name %}
 				<article class="post">
 					<header>
 						<div class="title">
@@ -20,7 +20,7 @@
 												{{ person.blurb }}
 											</span> -->
 
-								<img src="{{ person.picture.url }}" class="img-responsive" />
+								<img src="{{ person.picture.url }}" onerror="this.onerror=null; this.src='https://skillmatch13-media.s3.amazonaws.com/media/images/default-user.jpg';" class="img-responsive" />
 							</a>
 						</div>
 					</header>
